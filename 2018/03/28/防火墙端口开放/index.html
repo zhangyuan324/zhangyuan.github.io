@@ -8,7 +8,8 @@
   
   <meta name="description" content="防火墙端口开放原则1，除用到的端口开放外，其他的端口一律不开放。禁止直接停止防火墙，开放所有端口2，一般开放常用端口80、21、22、3306
 开启端口:
-12firewall-cmd --zone=public --add-port=22122/tcp --permanentfirewall-cm">
+firewall-cmd --zone=public --add-port=22122/tcp --permanent
+firewall-cmd">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -67,10 +68,11 @@
       
         <h4 id="防火墙端口开放原则"><a href="#防火墙端口开放原则" class="headerlink" title="防火墙端口开放原则"></a>防火墙端口开放原则</h4><p>1，除用到的端口开放外，其他的端口一律不开放。禁止直接停止防火墙，开放所有端口<br>2，一般开放常用端口80、21、22、3306</p>
 <p>开启端口:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=22122/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=8000/tcp --permanent</span><br></pre></td></tr></table></figure>
-<p>出现success表明添加成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-<p>命令含义：</p>
+<pre><code>firewall-cmd --zone=public --add-port=22122/tcp --permanent
+firewall-cmd --zone=public --add-port=8000/tcp --permanent
+</code></pre><p>出现success表明添加成功</p>
+<pre><code>firewall-cmd --reload
+</code></pre><p>命令含义：</p>
 <ul>
 <li><p>–zone #作用域</p>
 </li>
@@ -79,21 +81,25 @@
 <li><p>–permanent   #永久生效，没有此参数重启后失效</p>
 </li>
 </ul>
-<h4 id="重启防火墙"><a href="#重启防火墙" class="headerlink" title="重启防火墙"></a>重启防火墙</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart firewalld.service</span><br></pre></td></tr></table></figure>
-<p>1、运行、停止、禁用firewalld</p>
+<h4 id="重启防火墙"><a href="#重启防火墙" class="headerlink" title="重启防火墙"></a>重启防火墙</h4><pre><code>systemctl restart firewalld.service
+</code></pre><p>1、运行、停止、禁用firewalld</p>
 <p>启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start  firewalld</span><br></pre></td></tr></table></figure>
-<p>查看状态：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">或者</span><br></pre></td></tr></table></figure>
-<p>firewall-cmd –state<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">停止：</span><br></pre></td></tr></table></figure></p>
-<p>systemctl disable firewalld<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">禁用：</span><br></pre></td></tr></table></figure></p>
-<p>systemctl stop firewalld<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### 直接添加服务</span><br></pre></td></tr></table></figure></p>
-<p>firewall-cmd –permanent –zone=public –add-service=http<br>firewall-cmd –reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### 添加端口（--permanent永久生效，没有此参数重启后失效）</span><br></pre></td></tr></table></figure></p>
-<p>firewall-cmd –permanent –zone=public –add-port=80/tcp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### 重新载入</span><br></pre></td></tr></table></figure></p>
-<p>firewall-cmd –reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### 查看端口</span><br></pre></td></tr></table></figure></p>
-<p>firewall-cmd –zone=public –query-port=80/tcp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### 删除端口</span><br></pre></td></tr></table></figure></p>
-<p>firewall-cmd –permanent –zone=public –remove-port=80/tcp<br><code>`</code></p>
-
+<pre><code>systemctl start  firewalld
+</code></pre><p>查看状态：</p>
+<pre><code>systemctl status firewalld
+</code></pre><p>或者 </p>
+<pre><code>firewall-cmd --state
+</code></pre><p>停止：</p>
+<pre><code>systemctl disable firewalld
+</code></pre><p>禁用：</p>
+<pre><code>systemctl stop firewalld
+</code></pre><h4 id="直接添加服务"><a href="#直接添加服务" class="headerlink" title="直接添加服务"></a>直接添加服务</h4><pre><code>firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload
+</code></pre><h4 id="添加端口（–permanent永久生效，没有此参数重启后失效）"><a href="#添加端口（–permanent永久生效，没有此参数重启后失效）" class="headerlink" title="添加端口（–permanent永久生效，没有此参数重启后失效）"></a>添加端口（–permanent永久生效，没有此参数重启后失效）</h4><pre><code>firewall-cmd --permanent --zone=public --add-port=80/tcp
+</code></pre><h4 id="重新载入"><a href="#重新载入" class="headerlink" title="重新载入"></a>重新载入</h4><pre><code>firewall-cmd --reload
+</code></pre><h4 id="查看端口"><a href="#查看端口" class="headerlink" title="查看端口"></a>查看端口</h4><pre><code>firewall-cmd --zone=public --query-port=80/tcp
+</code></pre><h4 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h4><pre><code>firewall-cmd --permanent --zone=public --remove-port=80/tcp
+</code></pre>
       
     </div>
     <footer>
