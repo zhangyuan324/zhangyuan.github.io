@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java中 列表，集合，数组之间的转换 | 学习笔记</title>
+  <meta name="author" content="Zhang Yuan">
+  
+  <meta name="description" content="java中 列表，集合，数组之间的转换
+java中 列表，集合，数组之间的转换
+java中 列表，集合，数组之间的转换
+ List和Set都是接口，它们继承Collection（集合），集合里面任何数据类型都可以添加
+List是有序的队列，可以用重复的元素；而Set是数学概念中的集合，不能有重复的元">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="java中 列表，集合，数组之间的转换"/>
+  <meta property="og:site_name" content="学习笔记"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="学习笔记" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">学习笔记</a></h1>
+  <h2><a href="/">不积跬步，无以至千里；不积小流，无以成江海。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">时光轴</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-04-01T02:30:20.000Z"><a href="/2018/04/01/java中 列表，集合，数组之间的转换/">2018年04月01日</a></time>
+      
+      
+  
+    <h1 class="title">java中 列表，集合，数组之间的转换</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>java中 列表，集合，数组之间的转换</p>
+<p>java中 列表，集合，数组之间的转换</p>
+<p>java中 列表，集合，数组之间的转换</p>
+<p> List和Set都是接口，它们继承Collection（集合），集合里面任何数据类型都可以添加</p>
+<p>List是有序的队列，可以用重复的元素；而Set是数学概念中的集合，不能有重复的元素。</p>
+<p>数组 长度固定  可存储任何数据类型       集合 长度可变（包括：list，set）可存储任何数据类型</p>
+<p>列表 list   有序   长度可变   元素可重复     集set  无序   长度可变   元素不可重复</p>
+<p>将数组转化为一个列表时，程序员们经常这样做： </p>
+<p>String[] arr = {“a”,”b”,”c”, “d”, “e”}; </p>
+<p>List<string> list = Arrays.asList(arr);</string></p>
+<p>Arrays.asList()会返回一个ArrayList对象，ArrayList类是Arrays的一个私有静态类，</p>
+<p>而不是java.util.ArrayList类，java.util.Arrays.ArrayList类有set()、get()、contains()方法，</p>
+<p>但是没有增加元素的方法，所以它的大小是固定的，想要创建一个真正的ArrayList类，</p>
+<p>你应该这样做：</p>
+<p>String[] arr = {“a”,”b”,”c”, “d”, “e”}; </p>
+<p>ArrayList<string> arrayList = new ArrayList<string>(Arrays.asList(arr));  </string></string></p>
+<p>也可以这样做：</p>
+<p>for(int i=0; i&lt;arry.length; i++){<br>list.add(arry[i])<br>}</p>
+<p>将一个数组列表转换为数组 </p>
+<p>String[] stringArray = { “a”, “b”, “c”, “d”, “e” };<br>ArrayList<string> arrayList = new ArrayList<string>(Arrays.asList(stringArray));<br>String[] stringArr = new String[arrayList.size()];  ——————定义数组必须先定义数组的长度，由于数组长度固定<br>arrayList.toArray(stringArr);<br>for (String s : stringArr)<br>    System.out.println(s);<br>List转换为Array也可以这样处理：</string></string></p>
+<p>ArrayList<string> list=new ArrayList<string>();</string></string></p>
+<p>String[] strings = new String[list.size()]; ——————定义数组必须先定义数组的长度，由于数组长度固定</p>
+<p>list.toArray(strings);</p>
+<p>反过来，如果要将数组转成List怎么办呢？如下：</p>
+<p>String[] s = {“a”,”b”,”c”};<br>List list = java.util.Arrays.asList(s);</p>
+<p>将一个数组转换为集（set） </p>
+<p>Set<string> set = new HashSet<string>(Arrays.asList(stringArray));<br>System.out.println(set);<br>//[d, e, b, c, a]<br>将一个集（set） 转换为数组</string></string></p>
+<p>arry=set.toArry();<br>arry=(String[])set.toArry(new String[set.size()]);</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/java/">java</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/java/">java</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Blogs/">Blogs</a><small>1</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>2</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Java/">Java</a><small>1</small></li>
+  
+    <li><a href="/tags/Qt/">Qt</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>4</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Zhang Yuan
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof jQuery == 'undefined') {
+document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+}
+// ]]>
+</script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+
+// highlight
+ hljs.initHighlightingOnLoad();
+
+})(jQuery);
+</script>
+
+</body>
+</html>
