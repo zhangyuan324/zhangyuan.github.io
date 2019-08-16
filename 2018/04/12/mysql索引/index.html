@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mysql索引 | 学习笔记</title>
+  <meta name="author" content="Zhang Yuan">
+  
+  <meta name="description" content="索引(Index)是帮助 MySQL 高效获取数据的数据结构。常见的查询算法,顺序查找,二分查找,二叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树(B-tree。
+mysql的索引分为单列索引(主键索引,唯一索引,普通索引)和组合索引。
+单列索引:一个索引只包含一个列,一个表可以有多个单">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="mysql索引"/>
+  <meta property="og:site_name" content="学习笔记"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="学习笔记" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">学习笔记</a></h1>
+  <h2><a href="/">不积跬步，无以至千里；不积小流，无以成江海。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">时光轴</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-04-12T13:11:24.000Z"><a href="/2018/04/12/mysql索引/">2018年04月12日</a></time>
+      
+      
+  
+    <h1 class="title">mysql索引</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>索引(Index)是帮助 MySQL 高效获取数据的数据结构。常见的查询算法,顺序查找,二分查找,二<br>叉排序树查找,哈希散列法,分块查找,平衡多路搜索树 B 树(B-tree。</p>
+<p>mysql的索引分为单列索引(主键索引,唯一索引,普通索引)和组合索引。</p>
+<p>单列索引:一个索引只包含一个列,一个表可以有多个单列索引。</p>
+<p>组合索引:一个组合索引包含两个或两个以上的列。</p>
+<p>一、索引类型</p>
+<ol>
+<li>索引创建</li>
+</ol>
+<p>第一种方式：<br>CREATE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length))</p>
+<p>第二种方式：<br>ALTER TABLE TableName ADD INDEX IndexName(<code>字段名</code>(length))</p>
+<p>如果是CHAR,VARCHAR,类型,length可以小于字段的实际长度,如果是BLOB和TEXT类型就必须指定长度。</p>
+<ol start="2">
+<li>主键索引</li>
+</ol>
+<p>主键索引建立的规则是 int优于varchar,一般在建表的时候创建,最好是与表的其他字段不相关的列或者是业务不相关的列.一般会设为 int 而且是 AUTO_INCREMENT自增类型的；不允许有空值</p>
+<ol start="3">
+<li>唯一索引</li>
+</ol>
+<p>CREATE UNIQUE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length));</p>
+<p>与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值。</p>
+<ol start="4">
+<li>组合索引</li>
+</ol>
+<p>CREATE INDEX nickname_account_createdTime_Index ON <code>award</code>(<code>nickname</code>, <code>account</code>, <code>created_time</code>);</p>
+<p>对多个字段建立索引。<br>如果你建立了 组合索引(nickname_account_createdTime_Index) 那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</p>
+<p>在使用查询的时候遵循mysql组合索引的”最左前缀”,下面我们来分析一下 什么是最左前缀:及索引where时的条件要按照建立索引的时候字段的排序方式</p>
+<p>1、不按索引最左列开始查询（多列索引） 例如index(‘c1’, ‘c2’, ‘c3’) where ‘c2’ = ‘aaa’ 不使用索引,where <code>c2</code> = <code>aaa</code> and <code>c3</code>=<code>sss</code> 不能使用索引</p>
+<p>2、查询中某个列有范围查询，则其右边的所有列都无法使用查询（多列查询）</p>
+<p>Where c1= ‘xxx’ and c2 like = ‘aa%’ and c3=’sss’ 改查询只会使用索引中的前两列,因为like是范围查询</p>
+<p>3、不能跳过某个字段来进行查询,这样利用不到索引,比如我的sql 是</p>
+<p>explain select * from <code>award</code> where nickname &gt; ‘rSUQFzpkDz3R’ and account = ‘DYxJoqZq2rd7’ and created_time = 1449567822; 那么这时候他使用不到其组合索引.</p>
+<p>因为我的索引是 (nickname, account, created_time),如果第一个字段出现 范围符号的查找,那么将不会用到索引,如果我是第二个或者第三个字段使用范围符号的查找,那么他会利用索引,利用的索引是(nickname),</p>
+<p>因为上面说了建立组合索引(nickname, account, created_time), 会出现三个索引</p>
+<ol start="5">
+<li>全文索引</li>
+</ol>
+<p>ALTER TABLE tablename ADD FULLTEXT(column1, column2)</p>
+<p>可以用SELECT查询命令去检索那些包含着一个或多个给定单词的数据记录</p>
+<p>SELECT * FROM tablename<br>WHERE MATCH(column1, column2) AGAINST(‘xxx′, ‘sss′, ‘ddd′)</p>
+<p>强烈注意：MySQL自带的全文索引只能用于数据库引擎为MyISAM的数据表，如果是其他数据引擎，则全文索引不会生效。此外，MySQL自带的全文索引只能对英文进行全文检索，目前无法对中文进行全文检索。如果需要对包含中文在内的文本数据进行全文检索，我们需要采用Sphinx(斯芬克斯)/Coreseek技术来处理中文。本站将会在后续文章中对Sphinx以及Coreseek进行介绍。</p>
+<p>备注1：目前，使用MySQL自带的全文索引时，如果查询字符串的长度过短将无法得到期望的搜索结果。MySQL全文索引所能找到的词的默认最小长度为4个字符。另外，如果查询的字符串包含停止词，那么该停止词将会被忽略。</p>
+<p>备注2：如果可能，请尽量先创建表并插入所有数据后再创建全文索引，而不要在创建表时就直接创建全文索引，因为前者比后者的全文索引效率要高。</p>
+<ol start="6">
+<li>删除索引</li>
+</ol>
+<p>DORP INDEX IndexName ON <code>TableName</code></p>
+<p>二、索引规约</p>
+<ol>
+<li>【强制】业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。 说明:不要以为唯一索引影响了 insert 速度，这个速度损耗可以忽略，但提高查找速度是明 显的;另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，根据墨菲定律，必 然有脏数据产生。</li>
+<li>【强制】 超过三个表禁止 join。需要 join 的字段，数据类型必须绝对一致;多表关联查询 时，保证被关联的字段需要有索引。<br>说明:即使双表 join 也要注意表索引、SQL 性能。</li>
+<li>【强制】在 varchar 字段上建立索引时，必须指定索引长度，没必要对全字段建立索引，根据 实际文本区分度决定索引长度即可。 说明:索引的长度与区分度是一对矛盾体，一般对字符串类型数据，长度为 20 的索引，区分 度会高达 90%以上，可以使用 count(distinct left(列名, 索引长度))/count(*)的区分度 来确定。</li>
+<li>【强制】页面搜索严禁左模糊或者全模糊，如果需要请走搜索引擎来解决。<br>说明:索引文件具有 B-Tree 的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索 引。</li>
+<li>【推荐】如果有 order by 的场景，请注意利用索引的有序性。order by 最后的字段是组合 索引的一部分，并且放在索引组合顺序的最后，避免出现 file_sort 的情况，影响查询性能。 正例:where a=? and b=? order by c; 索引:a_b_c 反例:索引中有范围查找，那么索引有序性无法利用，如:WHERE a&gt;10 ORDER BY b; 索引 a_b 无法排序。</li>
+<li>【推荐】利用覆盖索引来进行查询操作，避免回表。<br>说明:如果一本书需要知道第 11 章是什么标题，会翻开第 11 章对应的那一页吗?目录浏览 一下就好，这个目录就是起到覆盖索引的作用。 正例:能够建立索引的种类:主键索引、唯一索引、普通索引，而覆盖索引是一种查询的一种 效果，用explain的结果，extra列会出现:using index。</li>
+<li>【推荐】利用延迟关联或者子查询优化超多分页场景。<br>说明:MySQL 并不是跳过 offset 行，而是取 offset+N 行，然后返回放弃前 offset 行，返回 N 行，那当 offset 特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过 特定阈值的页数进行 SQL 改写。<br>正例:先快速定位需要获取的 id 段，然后再关联:<br>SELECT a.* FROM 表 1 a, (select id from 表 1 where 条件 LIMIT 100000,20 ) b where a.id=b.id</li>
+<li>【推荐】SQL 性能优化的目标:至少要达到 range 级别，要求是 ref 级别，如果可以是 consts 最好。<br>说明:<br>1)consts 单表中最多只有一个匹配行(主键或者唯一索引)，在优化阶段即可读取到数据。 2)ref 指的是使用普通的索引(normal index)。<br>3)range 对索引进行范围检索。<br>反例:explain 表的结果，type=index，索引物理文件全扫描，速度非常慢，这个 index 级 别比较 range 还低，与全表扫描是小巫见大巫。</li>
+<li>【推荐】建组合索引的时候，区分度最高的在最左边。<br>正例:如果 where a=? and b=? ，a 列的几乎接近于唯一值，那么只需要单建 idx_a 索引即 可。 说明:存在非等号和等号混合判断条件时，在建索引时，请把等号条件的列前置。如:where a&gt;? and b=? 那么即使 a 的区分度更高，也必须把 b 放在索引的最前列。</li>
+<li>【推荐】防止因字段类型不同造成的隐式转换，导致索引失效。</li>
+<li>【参考】创建索引时避免有如下极端误解:<br>1)宁滥勿缺。误认为一个查询就需要建一个索引。<br>2)宁缺勿滥。误认为索引会消耗空间、严重拖慢更新和新增速度。<br>3)抵制唯一索引。误认为业务的惟一性一律需要在应用层通过“先查后插”方式解决</li>
+</ol>
+<p>三、使用索引的优点</p>
+<p>1.可以通过建立唯一索引或者主键索引,保证数据库表中每一行数据的唯一性.<br>2.建立索引可以大大提高检索的数据,以及减少表的检索行数<br>3.在表连接的连接条件 可以加速表与表直接的相连<br>4.在分组和排序字句进行数据检索,可以减少查询时间中 分组 和 排序时所消耗的时间(数据库的记录会重新排序)<br>5.建立索引,在查询中使用索引 可以提高性能</p>
+<p>四、使用索引的缺点</p>
+<p>1.在创建索引和维护索引 会耗费时间,随着数据量的增加而增加<br>2.索引文件会占用物理空间,除了数据表需要占用物理空间之外,每一个索引还会占用一定的物理空间<br>3.当对表的数据进行 INSERT,UPDATE,DELETE 的时候,索引也要动态的维护,这样就会降低数据的维护速度,(建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快)。</p>
+<p>五、使用索引需要注意的地方</p>
+<p>在建立索引的时候应该考虑索引应该建立在数据库表中的某些列上面 哪一些索引需要建立,哪一些所以是多余的.<br>一般来说,<br>1.在经常需要搜索的列上,可以加快索引的速度<br>2.主键列上可以确保列的唯一性<br>3.在表与表的而连接条件上加上索引,可以加快连接查询的速度<br>4.在经常需要排序(order by),分组(group by)和的distinct 列上加索引 可以加快排序查询的时间,  (单独order by 用不了索引，索引考虑加where 或加limit)<br>5.在一些where 之后的 &lt; &lt;= &gt; &gt;= BETWEEN IN 以及某个情况下的like 建立字段的索引(B-TREE)</p>
+<p>6.like语句的 如果你对nickname字段建立了一个索引.当查询的时候的语句是 nickname lick ‘%ABC%’ 那么这个索引讲不会起到作用.而nickname lick ‘ABC%’ 那么将可以用到索引</p>
+<p>7.索引不会包含NULL列,如果列中包含NULL值都将不会被包含在索引中,复合索引中如果有一列含有NULL值那么这个组合索引都将失效,一般需要给默认值0或者 ‘ ‘字符串</p>
+<p>8.使用短索引,如果你的一个字段是Char(32)或者int(32),在创建索引的时候指定前缀长度 比如前10个字符 (前提是多数值是唯一的..)那么短索引可以提高查询速度,并且可以减少磁盘的空间,也可以减少I/0操作.</p>
+<p>9.不要在列上进行运算,这样会使得mysql索引失效,也会进行全表扫描</p>
+<p>10.选择越小的数据类型越好,因为通常越小的数据类型通常在磁盘,内存,cpu,缓存中 占用的空间很少,处理起来更快</p>
+<p>六、什么情况下不创建索引</p>
+<p>1.查询中很少使用到的列 不应该创建索引,如果建立了索引然而还会降低mysql的性能和增大了空间需求.<br>2.很少数据的列也不应该建立索引,比如 一个性别字段 0或者1,在查询中,结果集的数据占了表中数据行的比例比较大,mysql需要扫描的行数很多,增加索引,并不能提高效率<br>3.定义为text和image和bit数据类型的列不应该增加索引,<br>4.当表的修改(UPDATE,INSERT,DELETE)操作远远大于检索(SELECT)操作时不应该创建索引,这两个操作是互斥的关系</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/linux/">linux</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/java/">java</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Blogs/">Blogs</a><small>1</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>2</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Java/">Java</a><small>1</small></li>
+  
+    <li><a href="/tags/Qt/">Qt</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>3</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>4</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Zhang Yuan
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof jQuery == 'undefined') {
+document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+}
+// ]]>
+</script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+
+// highlight
+ hljs.initHighlightingOnLoad();
+
+})(jQuery);
+</script>
+
+</body>
+</html>
