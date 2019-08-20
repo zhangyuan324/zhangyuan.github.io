@@ -6,11 +6,12 @@
   <title>linux常用命令 | 学习笔记</title>
   <meta name="author" content="Zhang Yuan">
   
-  <meta name="description" content="1 ssh 命令连接服务器引用ssh aliyunzixun@xxx.com 
-2 文件目录操作显示所有文件和文件夹引用ls -al 
-创建文件夹引用mkdir foldername 
-创建文件引用touch filename 
-删除文件夹或文件引用rm -r foldername/filename">
+  <meta name="description" content="1 ssh 命令连接服务器引用ssh aliyunzixun@xxx.com
+2 文件目录操作显示所有文件和文件夹引用ls -al
+创建文件夹引用mkdir foldername
+创建文件引用touch filename
+删除文件夹或文件引用rm -r foldername/filename
+文件拷">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -67,27 +68,27 @@
     </header>
     <div class="entry">
       
-        <p>1 ssh 命令<br>连接服务器<br>引用ssh <a href="mailto:aliyunzixun@xxx.com" target="_blank" rel="noopener">aliyunzixun@xxx.com</a> </p>
-<p>2 文件目录操作<br>显示所有文件和文件夹<br>引用ls -al </p>
-<p>创建文件夹<br>引用mkdir foldername </p>
-<p>创建文件<br>引用touch filename </p>
-<p>删除文件夹或文件<br>引用rm -r foldername/filename </p>
-<p>文件拷贝<br>引用cp filename cpfilename </p>
-<p>文件剪切<br>引用mv filename cpfilename </p>
-<p>切换到用户目录<br>引用cd ~ </p>
-<p>动态显示文件尾部,常用来查看tomcat的catalina.out文件<br>引用tail -f catalina.out </p>
-<p>文件搜索<br>引用find ~ -name “catalina.out” </p>
-<p>如果只有一个catalina.out,可以把这个命令跟tail一起使用,直接读取catalina.out<br>引用tail -f <code>find ~ -name &quot;catalina.out&quot;</code> </p>
-<p>3 文件权限命令<br>引用chmod +x filename 添加可执行权限 </p>
-<p>4 tar 文件压缩<br>压缩<br>引用tar -zvcf java.tar.gz java<br>解压<br>引用tar -xzvf java.tar.gz </p>
-<p>5 进程命令<br>查看java进程<br>引用ps -aux | grep java<br>结束进程<br>引用kill processnumber<br>查看内存利用情况<br>引用du </p>
-<p>6 环境变量命令<br>查看所有环境变量<br>引用env<br>查看 JAVA_HOME<br>引用echo $JAVA_HOME<br>查看java命令路径<br>引用which java<br>给命令起别名<br>引用alias lm=’ls -al’<br>使修改的环境变量文件生效<br>引用source .bashrc </p>
-<p>7 vim命令<br>读取文件<br>引用vim file<br>在只读模式下的命令<br>引用/ 搜索命令 按n寻找下一个 N寻找上一个<br>G 到文件末尾<br>gg 到文件开头<br>page down,page up键可以上下翻页 </p>
-<p>按i或者o或者a进入编辑模式<br>按esc回到只读模式<br>按shift+: 进入命令模式<br>引用q! 强制退出<br>wq 保存之后退出<br>sh 进入shell<br>exit 退出上面vim里用命令进入的shell </p>
-<p>8 less 命令<br>less命令跟vim命令相比 更快 每次less命令只读区当前页数据<br>搜索<br>引用当使用命令 less file-name 打开一个文件后,可以使用下面的方式在文件中搜索。搜索时整个文本中匹配的部分会被高亮显示。<br>向前搜索<br>/ - 使用一个模式进行搜索,并定位到下一个匹配的文本<br>n - 向前查找下一个匹配的文本<br>N - 向后查找前一个匹配的文本<br>向后搜索<br>? - 使用模式进行搜索,并定位到前一个匹配的文本<br>n - 向后查找下一个匹配的文本<br>N - 向前查找前一个匹配的文本 </p>
-<p>全屏导航<br>引用ctrl + F - 向前移动一屏<br>ctrl + B - 向后移动一屏<br>ctrl + D - 向前移动半屏<br>ctrl + U - 向后移动半屏 </p>
-<p>单行导航<br>引用j - 向前移动一行<br>k - 向后移动一行<br>其它导航<br>引用G - 移动到最后一行<br>g - 移动到第一行 </p>
-<h2 id="q-ZZ-退出-less-命令"><a href="#q-ZZ-退出-less-命令" class="headerlink" title="q / ZZ - 退出 less 命令 "></a>q / ZZ - 退出 less 命令 </h2>
+        <p>1 ssh 命令<br>连接服务器<br>引用ssh <a href="mailto:aliyunzixun@xxx.com" target="_blank" rel="noopener">aliyunzixun@xxx.com</a></p>
+<p>2 文件目录操作<br>显示所有文件和文件夹<br>引用ls -al</p>
+<p>创建文件夹<br>引用mkdir foldername</p>
+<p>创建文件<br>引用touch filename</p>
+<p>删除文件夹或文件<br>引用rm -r foldername/filename</p>
+<p>文件拷贝<br>引用cp filename cpfilename</p>
+<p>文件剪切<br>引用mv filename cpfilename</p>
+<p>切换到用户目录<br>引用cd ~</p>
+<p>动态显示文件尾部,常用来查看tomcat的catalina.out文件<br>引用tail -f catalina.out</p>
+<p>文件搜索<br>引用find ~ -name “catalina.out”</p>
+<p>如果只有一个catalina.out,可以把这个命令跟tail一起使用,直接读取catalina.out<br>引用tail -f <code>find ~ -name &quot;catalina.out&quot;</code></p>
+<p>3 文件权限命令<br>引用chmod +x filename 添加可执行权限</p>
+<p>4 tar 文件压缩<br>压缩<br>引用tar -zvcf java.tar.gz java<br>解压<br>引用tar -xzvf java.tar.gz</p>
+<p>5 进程命令<br>查看java进程<br>引用ps -aux | grep java<br>结束进程<br>引用kill processnumber<br>查看内存利用情况<br>引用du</p>
+<p>6 环境变量命令<br>查看所有环境变量<br>引用env<br>查看 JAVA_HOME<br>引用echo $JAVA_HOME<br>查看java命令路径<br>引用which java<br>给命令起别名<br>引用alias lm=’ls -al’<br>使修改的环境变量文件生效<br>引用source .bashrc</p>
+<p>7 vim命令<br>读取文件<br>引用vim file<br>在只读模式下的命令<br>引用/ 搜索命令 按n寻找下一个 N寻找上一个<br>G 到文件末尾<br>gg 到文件开头<br>page down,page up键可以上下翻页</p>
+<p>按i或者o或者a进入编辑模式<br>按esc回到只读模式<br>按shift+: 进入命令模式<br>引用q! 强制退出<br>wq 保存之后退出<br>sh 进入shell<br>exit 退出上面vim里用命令进入的shell</p>
+<p>8 less 命令<br>less命令跟vim命令相比 更快 每次less命令只读区当前页数据<br>搜索<br>引用当使用命令 less file-name 打开一个文件后,可以使用下面的方式在文件中搜索。搜索时整个文本中匹配的部分会被高亮显示。<br>向前搜索<br>/ - 使用一个模式进行搜索,并定位到下一个匹配的文本<br>n - 向前查找下一个匹配的文本<br>N - 向后查找前一个匹配的文本<br>向后搜索<br>? - 使用模式进行搜索,并定位到前一个匹配的文本<br>n - 向后查找下一个匹配的文本<br>N - 向前查找前一个匹配的文本</p>
+<p>全屏导航<br>引用ctrl + F - 向前移动一屏<br>ctrl + B - 向后移动一屏<br>ctrl + D - 向前移动半屏<br>ctrl + U - 向后移动半屏</p>
+<p>单行导航<br>引用j - 向前移动一行<br>k - 向后移动一行<br>其它导航<br>引用G - 移动到最后一行<br>g - 移动到第一行</p>
+<h2 id="q-ZZ-退出-less-命令"><a href="#q-ZZ-退出-less-命令" class="headerlink" title="q / ZZ - 退出 less 命令"></a>q / ZZ - 退出 less 命令</h2>
       
     </div>
     <footer>
@@ -95,7 +96,7 @@
         
   
   <div class="categories">
-    <a href="/categories/java/">java</a>
+    <a href="/categories/linux/">linux</a>
   </div>
 
         
@@ -127,9 +128,11 @@
   
     <li><a href="/categories/Blogs/">Blogs</a><small>1</small></li>
   
-    <li><a href="/categories/java/">java</a><small>2</small></li>
+    <li><a href="/categories/MySQL/">MySQL</a><small>3</small></li>
   
-    <li><a href="/categories/linux/">linux</a><small>5</small></li>
+    <li><a href="/categories/java/">java</a><small>1</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
   
   </ul>
 </div>
@@ -142,11 +145,13 @@
   
     <li><a href="/tags/Java/">Java</a><small>1</small></li>
   
+    <li><a href="/tags/MySQL/">MySQL</a><small>3</small></li>
+  
     <li><a href="/tags/Qt/">Qt</a><small>1</small></li>
   
-    <li><a href="/tags/java/">java</a><small>3</small></li>
+    <li><a href="/tags/java/">java</a><small>1</small></li>
   
-    <li><a href="/tags/linux/">linux</a><small>4</small></li>
+    <li><a href="/tags/linux/">linux</a><small>3</small></li>
   
   </ul>
 </div>
