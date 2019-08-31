@@ -52,6 +52,79 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2019-08-31T15:17:51.000Z"><a href="/2019/08/31/java并发包/">2019年08月31日</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/08/31/java并发包/">java并发包</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-08-24T10:30:20.000Z"><a href="/2019/08/24/优惠券设计/">2019年08月24日</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/08/24/优惠券设计/">优惠券设计</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>•    优惠券模块ER图<br><img src="/.com//图片1.png" alt=""></p>
+<p>备注：<br>目前不支持优惠券叠加使用，因此优惠券叠加使用规则表（t_coupon_superposition_limit）暂未使用。<br>•    优惠券模块类图</p>
+<p>•    优惠券设计</p>
+<p>目前平台包含3种类型优惠券：满减券，税费券，运费券。满减券只可抵扣商品价格，税费券只可抵扣商品税费，运费券只可抵扣商品运费。按用途可以分为系统营销券和商品券，二者是互斥的，一个优惠券模版（t_coupon）只能应用到一个地方，如果优惠券模版配置到系统营销（t_coupon_activity_relation），则该券不会在商品详情显示，反之亦然。优惠券模版必须包含领取规则，使用规则以及使用范围。<br>服务端的优惠券管理模块在mgr_yuncang项目实现：<br>1)    优惠券添加与编辑<br>•    优惠券模版添加必须设定领取条件，使用范围，使用条件等信息<br>•    优惠券模版编辑只能修改优惠券数量，且必须大于原始数量<br>•    优惠券模版及规则均创建成功后，按照输入的数量制作全部优惠券，存到优惠券记录表（t_coupon_user_record），制券方法：makingCoupons<br>•    优惠券模版创建成功后，缓存券信息与所有券记录<br>备注：<br>采用优惠券预生成目的是以空间换时间，提升服务器吞吐量，提高用户抢券效率；如单次生成巨量优惠券，这种方式会存在缺陷，可以考虑将总数量拆分多个批次，通过一定策略按批次预生成优惠券；制券任务后续需异步处理<br>2)    系统营销配置<br>•    可根据不同类型的会员，按不同需求配置营销活动增券<br>•    一个系统营销活动可以绑定多张券，且只能选择在商品详情页隐藏的优惠券<br>3)    赠送特定APP用户优惠券<br>•    可向单个或多个用户赠送多种已发布的优惠券，优惠券数量按设定的张数发到用户券包<br>优惠券领取与使用在api_yuncang项目实现：</p>
+<ol>
+<li>优惠券领取<br>用户可以在四个地方领取优惠券：<br>•    首页弹窗<br>显示系统营销配置的优惠券；用户点击立即领取后，按设定张数全部发放到用户券包<br>•    VIP页<br>和首页弹窗显示优惠券一致，只返回用户未领取的优惠券<br>•    商品详情页<br>可领优惠券为满足使用范围，满足领取条件的商品券<br>•    H5活动页<br>H5页设置固定券码的优惠券，该优惠券由运营人员事先配置好</li>
+<li>优惠券查看<br>用户券列表直接读取数据库，未查缓存数据。当缓存中用户券总数与数据库查询数量不一致，清空缓存</li>
+<li>优惠券使用<br>用户在结算页可选择单张满足使用条件的优惠券；获取可使用优惠券接口，根据用户当前身份，券使用范围，下单商品价格，税费，运费等信息校验用户有效期内的优惠券是否可使用；</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2018-04-12T13:11:24.000Z"><a href="/2018/04/12/mysql索引/">2018年04月12日</a></time>
       
       
@@ -326,11 +399,11 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-03-30T01:13:39.000Z"><a href="/2018/03/30/FileUtils/">2018年03月30日</a></time>
+        <time datetime="2018-03-30T01:13:39.000Z"><a href="/2018/03/30/mysql导入sql文件/">2018年03月30日</a></time>
       
       
   
-    <h1 class="title"><a href="/2018/03/30/FileUtils/">mysql导入sql文件</a></h1>
+    <h1 class="title"><a href="/2018/03/30/mysql导入sql文件/">mysql导入sql文件</a></h1>
   
 
     </header>
@@ -371,11 +444,11 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-03-30T01:13:39.000Z"><a href="/2018/03/30/mysql导入sql文件/">2018年03月30日</a></time>
+        <time datetime="2018-03-30T01:13:39.000Z"><a href="/2018/03/30/FileUtils/">2018年03月30日</a></time>
       
       
   
-    <h1 class="title"><a href="/2018/03/30/mysql导入sql文件/">mysql导入sql文件</a></h1>
+    <h1 class="title"><a href="/2018/03/30/FileUtils/">mysql导入sql文件</a></h1>
   
 
     </header>
@@ -578,55 +651,11 @@ firewall-cmd --reload
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-03-12T14:55:03.000Z"><a href="/2016/03/12/hello-world/">2016年03月12日</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/03/12/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
- public class
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -642,7 +671,7 @@ firewall-cmd --reload
   
     <li><a href="/categories/Python/">Python</a><small>1</small></li>
   
-    <li><a href="/categories/java/">java</a><small>1</small></li>
+    <li><a href="/categories/java/">java</a><small>2</small></li>
   
     <li><a href="/categories/linux/">linux</a><small>3</small></li>
   
@@ -661,9 +690,7 @@ firewall-cmd --reload
   
     <li><a href="/tags/Python/">Python</a><small>1</small></li>
   
-    <li><a href="/tags/Qt/">Qt</a><small>1</small></li>
-  
-    <li><a href="/tags/java/">java</a><small>1</small></li>
+    <li><a href="/tags/java/">java</a><small>2</small></li>
   
     <li><a href="/tags/linux/">linux</a><small>3</small></li>
   
