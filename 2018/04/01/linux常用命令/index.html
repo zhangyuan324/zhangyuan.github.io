@@ -6,12 +6,8 @@
   <title>linux常用命令 | 学习笔记</title>
   <meta name="author" content="Zhang Yuan">
   
-  <meta name="description" content="1 ssh 命令连接服务器引用ssh aliyunzixun@xxx.com
-2 文件目录操作显示所有文件和文件夹引用ls -al
-创建文件夹引用mkdir foldername
-创建文件引用touch filename
-删除文件夹或文件引用rm -r foldername/filename
-文件拷">
+  <meta name="description" content="1 ssh &amp;#x547D;&amp;#x4EE4;&amp;#x8FDE;&amp;#x63A5;&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x5F15;&amp;#x7528;ssh aliyunzixun@xxx.com
+2 &amp;#x6587;&amp;#x4EF6;&amp;#x76EE;&amp;#x5F55;&amp;#x64CD;&amp;#x4F5">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -68,27 +64,27 @@
     </header>
     <div class="entry">
       
-        <p>1 ssh 命令<br>连接服务器<br>引用ssh <a href="mailto:aliyunzixun@xxx.com" target="_blank" rel="noopener">aliyunzixun@xxx.com</a></p>
-<p>2 文件目录操作<br>显示所有文件和文件夹<br>引用ls -al</p>
-<p>创建文件夹<br>引用mkdir foldername</p>
-<p>创建文件<br>引用touch filename</p>
-<p>删除文件夹或文件<br>引用rm -r foldername/filename</p>
-<p>文件拷贝<br>引用cp filename cpfilename</p>
-<p>文件剪切<br>引用mv filename cpfilename</p>
-<p>切换到用户目录<br>引用cd ~</p>
-<p>动态显示文件尾部,常用来查看tomcat的catalina.out文件<br>引用tail -f catalina.out</p>
-<p>文件搜索<br>引用find ~ -name “catalina.out”</p>
-<p>如果只有一个catalina.out,可以把这个命令跟tail一起使用,直接读取catalina.out<br>引用tail -f <code>find ~ -name &quot;catalina.out&quot;</code></p>
-<p>3 文件权限命令<br>引用chmod +x filename 添加可执行权限</p>
-<p>4 tar 文件压缩<br>压缩<br>引用tar -zvcf java.tar.gz java<br>解压<br>引用tar -xzvf java.tar.gz</p>
-<p>5 进程命令<br>查看java进程<br>引用ps -aux | grep java<br>结束进程<br>引用kill processnumber<br>查看内存利用情况<br>引用du</p>
-<p>6 环境变量命令<br>查看所有环境变量<br>引用env<br>查看 JAVA_HOME<br>引用echo $JAVA_HOME<br>查看java命令路径<br>引用which java<br>给命令起别名<br>引用alias lm=’ls -al’<br>使修改的环境变量文件生效<br>引用source .bashrc</p>
-<p>7 vim命令<br>读取文件<br>引用vim file<br>在只读模式下的命令<br>引用/ 搜索命令 按n寻找下一个 N寻找上一个<br>G 到文件末尾<br>gg 到文件开头<br>page down,page up键可以上下翻页</p>
-<p>按i或者o或者a进入编辑模式<br>按esc回到只读模式<br>按shift+: 进入命令模式<br>引用q! 强制退出<br>wq 保存之后退出<br>sh 进入shell<br>exit 退出上面vim里用命令进入的shell</p>
-<p>8 less 命令<br>less命令跟vim命令相比 更快 每次less命令只读区当前页数据<br>搜索<br>引用当使用命令 less file-name 打开一个文件后,可以使用下面的方式在文件中搜索。搜索时整个文本中匹配的部分会被高亮显示。<br>向前搜索<br>/ - 使用一个模式进行搜索,并定位到下一个匹配的文本<br>n - 向前查找下一个匹配的文本<br>N - 向后查找前一个匹配的文本<br>向后搜索<br>? - 使用模式进行搜索,并定位到前一个匹配的文本<br>n - 向后查找下一个匹配的文本<br>N - 向前查找前一个匹配的文本</p>
-<p>全屏导航<br>引用ctrl + F - 向前移动一屏<br>ctrl + B - 向后移动一屏<br>ctrl + D - 向前移动半屏<br>ctrl + U - 向后移动半屏</p>
-<p>单行导航<br>引用j - 向前移动一行<br>k - 向后移动一行<br>其它导航<br>引用G - 移动到最后一行<br>g - 移动到第一行</p>
-<h2 id="q-ZZ-退出-less-命令"><a href="#q-ZZ-退出-less-命令" class="headerlink" title="q / ZZ - 退出 less 命令"></a>q / ZZ - 退出 less 命令</h2>
+        <p>1 ssh &#x547D;&#x4EE4;<br>&#x8FDE;&#x63A5;&#x670D;&#x52A1;&#x5668;<br>&#x5F15;&#x7528;ssh <a href="mailto:aliyunzixun@xxx.com" target="_blank" rel="noopener">aliyunzixun@xxx.com</a></p>
+<p>2 &#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x64CD;&#x4F5C;<br>&#x663E;&#x793A;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x548C;&#x6587;&#x4EF6;&#x5939;<br>&#x5F15;&#x7528;ls -al</p>
+<p>&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x5939;<br>&#x5F15;&#x7528;mkdir foldername</p>
+<p>&#x521B;&#x5EFA;&#x6587;&#x4EF6;<br>&#x5F15;&#x7528;touch filename</p>
+<p>&#x5220;&#x9664;&#x6587;&#x4EF6;&#x5939;&#x6216;&#x6587;&#x4EF6;<br>&#x5F15;&#x7528;rm -r foldername/filename</p>
+<p>&#x6587;&#x4EF6;&#x62F7;&#x8D1D;<br>&#x5F15;&#x7528;cp filename cpfilename</p>
+<p>&#x6587;&#x4EF6;&#x526A;&#x5207;<br>&#x5F15;&#x7528;mv filename cpfilename</p>
+<p>&#x5207;&#x6362;&#x5230;&#x7528;&#x6237;&#x76EE;&#x5F55;<br>&#x5F15;&#x7528;cd ~</p>
+<p>&#x52A8;&#x6001;&#x663E;&#x793A;&#x6587;&#x4EF6;&#x5C3E;&#x90E8;,&#x5E38;&#x7528;&#x6765;&#x67E5;&#x770B;tomcat&#x7684;catalina.out&#x6587;&#x4EF6;<br>&#x5F15;&#x7528;tail -f catalina.out</p>
+<p>&#x6587;&#x4EF6;&#x641C;&#x7D22;<br>&#x5F15;&#x7528;find ~ -name &#x201C;catalina.out&#x201D;</p>
+<p>&#x5982;&#x679C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;catalina.out,&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x8DDF;tail&#x4E00;&#x8D77;&#x4F7F;&#x7528;,&#x76F4;&#x63A5;&#x8BFB;&#x53D6;catalina.out<br>&#x5F15;&#x7528;tail -f <code>find ~ -name &quot;catalina.out&quot;</code></p>
+<p>3 &#x6587;&#x4EF6;&#x6743;&#x9650;&#x547D;&#x4EE4;<br>&#x5F15;&#x7528;chmod +x filename &#x6DFB;&#x52A0;&#x53EF;&#x6267;&#x884C;&#x6743;&#x9650;</p>
+<p>4 tar &#x6587;&#x4EF6;&#x538B;&#x7F29;<br>&#x538B;&#x7F29;<br>&#x5F15;&#x7528;tar -zvcf java.tar.gz java<br>&#x89E3;&#x538B;<br>&#x5F15;&#x7528;tar -xzvf java.tar.gz</p>
+<p>5 &#x8FDB;&#x7A0B;&#x547D;&#x4EE4;<br>&#x67E5;&#x770B;java&#x8FDB;&#x7A0B;<br>&#x5F15;&#x7528;ps -aux | grep java<br>&#x7ED3;&#x675F;&#x8FDB;&#x7A0B;<br>&#x5F15;&#x7528;kill processnumber<br>&#x67E5;&#x770B;&#x5185;&#x5B58;&#x5229;&#x7528;&#x60C5;&#x51B5;<br>&#x5F15;&#x7528;du</p>
+<p>6 &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x547D;&#x4EE4;<br>&#x67E5;&#x770B;&#x6240;&#x6709;&#x73AF;&#x5883;&#x53D8;&#x91CF;<br>&#x5F15;&#x7528;env<br>&#x67E5;&#x770B; JAVA_HOME<br>&#x5F15;&#x7528;echo $JAVA_HOME<br>&#x67E5;&#x770B;java&#x547D;&#x4EE4;&#x8DEF;&#x5F84;<br>&#x5F15;&#x7528;which java<br>&#x7ED9;&#x547D;&#x4EE4;&#x8D77;&#x522B;&#x540D;<br>&#x5F15;&#x7528;alias lm=&#x2019;ls -al&#x2019;<br>&#x4F7F;&#x4FEE;&#x6539;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x6587;&#x4EF6;&#x751F;&#x6548;<br>&#x5F15;&#x7528;source .bashrc</p>
+<p>7 vim&#x547D;&#x4EE4;<br>&#x8BFB;&#x53D6;&#x6587;&#x4EF6;<br>&#x5F15;&#x7528;vim file<br>&#x5728;&#x53EA;&#x8BFB;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x547D;&#x4EE4;<br>&#x5F15;&#x7528;/ &#x641C;&#x7D22;&#x547D;&#x4EE4; &#x6309;n&#x5BFB;&#x627E;&#x4E0B;&#x4E00;&#x4E2A; N&#x5BFB;&#x627E;&#x4E0A;&#x4E00;&#x4E2A;<br>G &#x5230;&#x6587;&#x4EF6;&#x672B;&#x5C3E;<br>gg &#x5230;&#x6587;&#x4EF6;&#x5F00;&#x5934;<br>page down,page up&#x952E;&#x53EF;&#x4EE5;&#x4E0A;&#x4E0B;&#x7FFB;&#x9875;</p>
+<p>&#x6309;i&#x6216;&#x8005;o&#x6216;&#x8005;a&#x8FDB;&#x5165;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;<br>&#x6309;esc&#x56DE;&#x5230;&#x53EA;&#x8BFB;&#x6A21;&#x5F0F;<br>&#x6309;shift+: &#x8FDB;&#x5165;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;<br>&#x5F15;&#x7528;q! &#x5F3A;&#x5236;&#x9000;&#x51FA;<br>wq &#x4FDD;&#x5B58;&#x4E4B;&#x540E;&#x9000;&#x51FA;<br>sh &#x8FDB;&#x5165;shell<br>exit &#x9000;&#x51FA;&#x4E0A;&#x9762;vim&#x91CC;&#x7528;&#x547D;&#x4EE4;&#x8FDB;&#x5165;&#x7684;shell</p>
+<p>8 less &#x547D;&#x4EE4;<br>less&#x547D;&#x4EE4;&#x8DDF;vim&#x547D;&#x4EE4;&#x76F8;&#x6BD4; &#x66F4;&#x5FEB; &#x6BCF;&#x6B21;less&#x547D;&#x4EE4;&#x53EA;&#x8BFB;&#x533A;&#x5F53;&#x524D;&#x9875;&#x6570;&#x636E;<br>&#x641C;&#x7D22;<br>&#x5F15;&#x7528;&#x5F53;&#x4F7F;&#x7528;&#x547D;&#x4EE4; less file-name &#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x540E;,&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x7684;&#x65B9;&#x5F0F;&#x5728;&#x6587;&#x4EF6;&#x4E2D;&#x641C;&#x7D22;&#x3002;&#x641C;&#x7D22;&#x65F6;&#x6574;&#x4E2A;&#x6587;&#x672C;&#x4E2D;&#x5339;&#x914D;&#x7684;&#x90E8;&#x5206;&#x4F1A;&#x88AB;&#x9AD8;&#x4EAE;&#x663E;&#x793A;&#x3002;<br>&#x5411;&#x524D;&#x641C;&#x7D22;<br>/ - &#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6A21;&#x5F0F;&#x8FDB;&#x884C;&#x641C;&#x7D22;,&#x5E76;&#x5B9A;&#x4F4D;&#x5230;&#x4E0B;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;<br>n - &#x5411;&#x524D;&#x67E5;&#x627E;&#x4E0B;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;<br>N - &#x5411;&#x540E;&#x67E5;&#x627E;&#x524D;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;<br>&#x5411;&#x540E;&#x641C;&#x7D22;<br>? - &#x4F7F;&#x7528;&#x6A21;&#x5F0F;&#x8FDB;&#x884C;&#x641C;&#x7D22;,&#x5E76;&#x5B9A;&#x4F4D;&#x5230;&#x524D;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;<br>n - &#x5411;&#x540E;&#x67E5;&#x627E;&#x4E0B;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;<br>N - &#x5411;&#x524D;&#x67E5;&#x627E;&#x524D;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x7684;&#x6587;&#x672C;</p>
+<p>&#x5168;&#x5C4F;&#x5BFC;&#x822A;<br>&#x5F15;&#x7528;ctrl + F - &#x5411;&#x524D;&#x79FB;&#x52A8;&#x4E00;&#x5C4F;<br>ctrl + B - &#x5411;&#x540E;&#x79FB;&#x52A8;&#x4E00;&#x5C4F;<br>ctrl + D - &#x5411;&#x524D;&#x79FB;&#x52A8;&#x534A;&#x5C4F;<br>ctrl + U - &#x5411;&#x540E;&#x79FB;&#x52A8;&#x534A;&#x5C4F;</p>
+<p>&#x5355;&#x884C;&#x5BFC;&#x822A;<br>&#x5F15;&#x7528;j - &#x5411;&#x524D;&#x79FB;&#x52A8;&#x4E00;&#x884C;<br>k - &#x5411;&#x540E;&#x79FB;&#x52A8;&#x4E00;&#x884C;<br>&#x5176;&#x5B83;&#x5BFC;&#x822A;<br>&#x5F15;&#x7528;G - &#x79FB;&#x52A8;&#x5230;&#x6700;&#x540E;&#x4E00;&#x884C;<br>g - &#x79FB;&#x52A8;&#x5230;&#x7B2C;&#x4E00;&#x884C;</p>
+<h2 id="q-ZZ-&#x9000;&#x51FA;-less-&#x547D;&#x4EE4;"><a href="#q-ZZ-&#x9000;&#x51FA;-less-&#x547D;&#x4EE4;" class="headerlink" title="q / ZZ - &#x9000;&#x51FA; less &#x547D;&#x4EE4;"></a>q / ZZ - &#x9000;&#x51FA; less &#x547D;&#x4EE4;</h2>
       
     </div>
     <footer>

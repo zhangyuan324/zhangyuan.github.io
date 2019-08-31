@@ -6,11 +6,8 @@
   <title>java中 列表，集合，数组之间的转换 | 学习笔记</title>
   <meta name="author" content="Zhang Yuan">
   
-  <meta name="description" content="java中 列表，集合，数组之间的转换
-java中 列表，集合，数组之间的转换
-java中 列表，集合，数组之间的转换
- List和Set都是接口，它们继承Collection（集合），集合里面任何数据类型都可以添加
-List是有序的队列，可以用重复的元素；而Set是数学概念中的集合，不能有重复的元">
+  <meta name="description" content="java&amp;#x4E2D; &amp;#x5217;&amp;#x8868;&amp;#xFF0C;&amp;#x96C6;&amp;#x5408;&amp;#xFF0C;&amp;#x6570;&amp;#x7EC4;&amp;#x4E4B;&amp;#x95F4;&amp;#x7684;&amp;#x8F6C;&amp;#x6362;
+java&amp;#x4E2D; &amp;#x5217;&amp;#x8868;&amp;#x">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -67,33 +64,33 @@ List是有序的队列，可以用重复的元素；而Set是数学概念中的�
     </header>
     <div class="entry">
       
-        <p>java中 列表，集合，数组之间的转换</p>
-<p>java中 列表，集合，数组之间的转换</p>
-<p>java中 列表，集合，数组之间的转换</p>
-<p> List和Set都是接口，它们继承Collection（集合），集合里面任何数据类型都可以添加</p>
-<p>List是有序的队列，可以用重复的元素；而Set是数学概念中的集合，不能有重复的元素。</p>
-<p>数组 长度固定  可存储任何数据类型       集合 长度可变（包括：list，set）可存储任何数据类型</p>
-<p>列表 list   有序   长度可变   元素可重复     集set  无序   长度可变   元素不可重复</p>
-<p>将数组转化为一个列表时，程序员们经常这样做： </p>
-<p>String[] arr = {“a”,”b”,”c”, “d”, “e”}; </p>
+        <p>java&#x4E2D; &#x5217;&#x8868;&#xFF0C;&#x96C6;&#x5408;&#xFF0C;&#x6570;&#x7EC4;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;</p>
+<p>java&#x4E2D; &#x5217;&#x8868;&#xFF0C;&#x96C6;&#x5408;&#xFF0C;&#x6570;&#x7EC4;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;</p>
+<p>java&#x4E2D; &#x5217;&#x8868;&#xFF0C;&#x96C6;&#x5408;&#xFF0C;&#x6570;&#x7EC4;&#x4E4B;&#x95F4;&#x7684;&#x8F6C;&#x6362;</p>
+<p> List&#x548C;Set&#x90FD;&#x662F;&#x63A5;&#x53E3;&#xFF0C;&#x5B83;&#x4EEC;&#x7EE7;&#x627F;Collection&#xFF08;&#x96C6;&#x5408;&#xFF09;&#xFF0C;&#x96C6;&#x5408;&#x91CC;&#x9762;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x90FD;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;</p>
+<p>List&#x662F;&#x6709;&#x5E8F;&#x7684;&#x961F;&#x5217;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x91CD;&#x590D;&#x7684;&#x5143;&#x7D20;&#xFF1B;&#x800C;Set&#x662F;&#x6570;&#x5B66;&#x6982;&#x5FF5;&#x4E2D;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x4E0D;&#x80FD;&#x6709;&#x91CD;&#x590D;&#x7684;&#x5143;&#x7D20;&#x3002;</p>
+<p>&#x6570;&#x7EC4; &#x957F;&#x5EA6;&#x56FA;&#x5B9A;  &#x53EF;&#x5B58;&#x50A8;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x7C7B;&#x578B;       &#x96C6;&#x5408; &#x957F;&#x5EA6;&#x53EF;&#x53D8;&#xFF08;&#x5305;&#x62EC;&#xFF1A;list&#xFF0C;set&#xFF09;&#x53EF;&#x5B58;&#x50A8;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x7C7B;&#x578B;</p>
+<p>&#x5217;&#x8868; list   &#x6709;&#x5E8F;   &#x957F;&#x5EA6;&#x53EF;&#x53D8;   &#x5143;&#x7D20;&#x53EF;&#x91CD;&#x590D;     &#x96C6;set  &#x65E0;&#x5E8F;   &#x957F;&#x5EA6;&#x53EF;&#x53D8;   &#x5143;&#x7D20;&#x4E0D;&#x53EF;&#x91CD;&#x590D;</p>
+<p>&#x5C06;&#x6570;&#x7EC4;&#x8F6C;&#x5316;&#x4E3A;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x65F6;&#xFF0C;&#x7A0B;&#x5E8F;&#x5458;&#x4EEC;&#x7ECF;&#x5E38;&#x8FD9;&#x6837;&#x505A;&#xFF1A; </p>
+<p>String[] arr = {&#x201C;a&#x201D;,&#x201D;b&#x201D;,&#x201D;c&#x201D;, &#x201C;d&#x201D;, &#x201C;e&#x201D;}; </p>
 <p>List<string> list = Arrays.asList(arr);</string></p>
-<p>Arrays.asList()会返回一个ArrayList对象，ArrayList类是Arrays的一个私有静态类，</p>
-<p>而不是java.util.ArrayList类，java.util.Arrays.ArrayList类有set()、get()、contains()方法，</p>
-<p>但是没有增加元素的方法，所以它的大小是固定的，想要创建一个真正的ArrayList类，</p>
-<p>你应该这样做：</p>
-<p>String[] arr = {“a”,”b”,”c”, “d”, “e”}; </p>
+<p>Arrays.asList()&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;ArrayList&#x5BF9;&#x8C61;&#xFF0C;ArrayList&#x7C7B;&#x662F;Arrays&#x7684;&#x4E00;&#x4E2A;&#x79C1;&#x6709;&#x9759;&#x6001;&#x7C7B;&#xFF0C;</p>
+<p>&#x800C;&#x4E0D;&#x662F;java.util.ArrayList&#x7C7B;&#xFF0C;java.util.Arrays.ArrayList&#x7C7B;&#x6709;set()&#x3001;get()&#x3001;contains()&#x65B9;&#x6CD5;&#xFF0C;</p>
+<p>&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x589E;&#x52A0;&#x5143;&#x7D20;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x60F3;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x7684;ArrayList&#x7C7B;&#xFF0C;</p>
+<p>&#x4F60;&#x5E94;&#x8BE5;&#x8FD9;&#x6837;&#x505A;&#xFF1A;</p>
+<p>String[] arr = {&#x201C;a&#x201D;,&#x201D;b&#x201D;,&#x201D;c&#x201D;, &#x201C;d&#x201D;, &#x201C;e&#x201D;}; </p>
 <p>ArrayList<string> arrayList = new ArrayList<string>(Arrays.asList(arr));  </string></string></p>
-<p>也可以这样做：</p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x505A;&#xFF1A;</p>
 <p>for(int i=0; i&lt;arry.length; i++){<br>list.add(arry[i])<br>}</p>
-<p>将一个数组列表转换为数组 </p>
-<p>String[] stringArray = { “a”, “b”, “c”, “d”, “e” };<br>ArrayList<string> arrayList = new ArrayList<string>(Arrays.asList(stringArray));<br>String[] stringArr = new String[arrayList.size()];  ——————定义数组必须先定义数组的长度，由于数组长度固定<br>arrayList.toArray(stringArr);<br>for (String s : stringArr)<br>    System.out.println(s);<br>List转换为Array也可以这样处理：</string></string></p>
+<p>&#x5C06;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5217;&#x8868;&#x8F6C;&#x6362;&#x4E3A;&#x6570;&#x7EC4; </p>
+<p>String[] stringArray = { &#x201C;a&#x201D;, &#x201C;b&#x201D;, &#x201C;c&#x201D;, &#x201C;d&#x201D;, &#x201C;e&#x201D; };<br>ArrayList<string> arrayList = new ArrayList<string>(Arrays.asList(stringArray));<br>String[] stringArr = new String[arrayList.size()];  &#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x5B9A;&#x4E49;&#x6570;&#x7EC4;&#x5FC5;&#x987B;&#x5148;&#x5B9A;&#x4E49;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x7531;&#x4E8E;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x56FA;&#x5B9A;<br>arrayList.toArray(stringArr);<br>for (String s : stringArr)<br>    System.out.println(s);<br>List&#x8F6C;&#x6362;&#x4E3A;Array&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5904;&#x7406;&#xFF1A;</string></string></p>
 <p>ArrayList<string> list=new ArrayList<string>();</string></string></p>
-<p>String[] strings = new String[list.size()]; ——————定义数组必须先定义数组的长度，由于数组长度固定</p>
+<p>String[] strings = new String[list.size()]; &#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x5B9A;&#x4E49;&#x6570;&#x7EC4;&#x5FC5;&#x987B;&#x5148;&#x5B9A;&#x4E49;&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x7531;&#x4E8E;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x56FA;&#x5B9A;</p>
 <p>list.toArray(strings);</p>
-<p>反过来，如果要将数组转成List怎么办呢？如下：</p>
-<p>String[] s = {“a”,”b”,”c”};<br>List list = java.util.Arrays.asList(s);</p>
-<p>将一个数组转换为集（set） </p>
-<p>Set<string> set = new HashSet<string>(Arrays.asList(stringArray));<br>System.out.println(set);<br>//[d, e, b, c, a]<br>将一个集（set） 转换为数组</string></string></p>
+<p>&#x53CD;&#x8FC7;&#x6765;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x5C06;&#x6570;&#x7EC4;&#x8F6C;&#x6210;List&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>String[] s = {&#x201C;a&#x201D;,&#x201D;b&#x201D;,&#x201D;c&#x201D;};<br>List list = java.util.Arrays.asList(s);</p>
+<p>&#x5C06;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x8F6C;&#x6362;&#x4E3A;&#x96C6;&#xFF08;set&#xFF09; </p>
+<p>Set<string> set = new HashSet<string>(Arrays.asList(stringArray));<br>System.out.println(set);<br>//[d, e, b, c, a]<br>&#x5C06;&#x4E00;&#x4E2A;&#x96C6;&#xFF08;set&#xFF09; &#x8F6C;&#x6362;&#x4E3A;&#x6570;&#x7EC4;</string></string></p>
 <p>arry=set.toArry();<br>arry=(String[])set.toArry(new String[set.size()]);</p>
 
       

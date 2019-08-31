@@ -6,10 +6,7 @@
   <title>防火墙端口开放 | 学习笔记</title>
   <meta name="author" content="Zhang Yuan">
   
-  <meta name="description" content="防火墙端口开放原则1，除用到的端口开放外，其他的端口一律不开放。禁止直接停止防火墙，开放所有端口2，一般开放常用端口80、21、22、3306
-开启端口:
-firewall-cmd --zone=public --add-port=22122/tcp --permanent
-firewall-cmd">
+  <meta name="description" content="&amp;#x9632;&amp;#x706B;&amp;#x5899;&amp;#x7AEF;&amp;#x53E3;&amp;#x5F00;&amp;#x653E;&amp;#x539F;&amp;#x5219;1&amp;#xFF0C;&amp;#x9664;&amp;#x7528;&amp;#x5230;&amp;#x7684;&amp;#x7AEF;&amp;#x53E3;&amp;#x5F00;&amp;#x653E;&amp;#x59">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -66,40 +63,40 @@ firewall-cmd">
     </header>
     <div class="entry">
       
-        <h4 id="防火墙端口开放原则"><a href="#防火墙端口开放原则" class="headerlink" title="防火墙端口开放原则"></a>防火墙端口开放原则</h4><p>1，除用到的端口开放外，其他的端口一律不开放。禁止直接停止防火墙，开放所有端口<br>2，一般开放常用端口80、21、22、3306</p>
-<p>开启端口:</p>
+        <h4 id="&#x9632;&#x706B;&#x5899;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x539F;&#x5219;"><a href="#&#x9632;&#x706B;&#x5899;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x539F;&#x5219;" class="headerlink" title="&#x9632;&#x706B;&#x5899;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x539F;&#x5219;"></a>&#x9632;&#x706B;&#x5899;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x539F;&#x5219;</h4><p>1&#xFF0C;&#x9664;&#x7528;&#x5230;&#x7684;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x7AEF;&#x53E3;&#x4E00;&#x5F8B;&#x4E0D;&#x5F00;&#x653E;&#x3002;&#x7981;&#x6B62;&#x76F4;&#x63A5;&#x505C;&#x6B62;&#x9632;&#x706B;&#x5899;&#xFF0C;&#x5F00;&#x653E;&#x6240;&#x6709;&#x7AEF;&#x53E3;<br>2&#xFF0C;&#x4E00;&#x822C;&#x5F00;&#x653E;&#x5E38;&#x7528;&#x7AEF;&#x53E3;80&#x3001;21&#x3001;22&#x3001;3306</p>
+<p>&#x5F00;&#x542F;&#x7AEF;&#x53E3;:</p>
 <pre><code>firewall-cmd --zone=public --add-port=22122/tcp --permanent
 firewall-cmd --zone=public --add-port=8000/tcp --permanent
-</code></pre><p>出现success表明添加成功</p>
+</code></pre><p>&#x51FA;&#x73B0;success&#x8868;&#x660E;&#x6DFB;&#x52A0;&#x6210;&#x529F;</p>
 <pre><code>firewall-cmd --reload
-</code></pre><p>命令含义：</p>
+</code></pre><p>&#x547D;&#x4EE4;&#x542B;&#x4E49;&#xFF1A;</p>
 <ul>
-<li><p>–zone #作用域</p>
+<li><p>&#x2013;zone #&#x4F5C;&#x7528;&#x57DF;</p>
 </li>
-<li><p>–add-port=80/tcp  #添加端口，格式为：端口/通讯协议</p>
+<li><p>&#x2013;add-port=80/tcp  #&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF0C;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A;&#x7AEF;&#x53E3;/&#x901A;&#x8BAF;&#x534F;&#x8BAE;</p>
 </li>
-<li><p>–permanent   #永久生效，没有此参数重启后失效</p>
+<li><p>&#x2013;permanent   #&#x6C38;&#x4E45;&#x751F;&#x6548;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x53C2;&#x6570;&#x91CD;&#x542F;&#x540E;&#x5931;&#x6548;</p>
 </li>
 </ul>
-<h4 id="重启防火墙"><a href="#重启防火墙" class="headerlink" title="重启防火墙"></a>重启防火墙</h4><pre><code>systemctl restart firewalld.service
-</code></pre><p>1、运行、停止、禁用firewalld</p>
-<p>启动：</p>
+<h4 id="&#x91CD;&#x542F;&#x9632;&#x706B;&#x5899;"><a href="#&#x91CD;&#x542F;&#x9632;&#x706B;&#x5899;" class="headerlink" title="&#x91CD;&#x542F;&#x9632;&#x706B;&#x5899;"></a>&#x91CD;&#x542F;&#x9632;&#x706B;&#x5899;</h4><pre><code>systemctl restart firewalld.service
+</code></pre><p>1&#x3001;&#x8FD0;&#x884C;&#x3001;&#x505C;&#x6B62;&#x3001;&#x7981;&#x7528;firewalld</p>
+<p>&#x542F;&#x52A8;&#xFF1A;</p>
 <pre><code>systemctl start  firewalld
-</code></pre><p>查看状态：</p>
+</code></pre><p>&#x67E5;&#x770B;&#x72B6;&#x6001;&#xFF1A;</p>
 <pre><code>systemctl status firewalld
-</code></pre><p>或者 </p>
+</code></pre><p>&#x6216;&#x8005; </p>
 <pre><code>firewall-cmd --state
-</code></pre><p>停止：</p>
+</code></pre><p>&#x505C;&#x6B62;&#xFF1A;</p>
 <pre><code>systemctl disable firewalld
-</code></pre><p>禁用：</p>
+</code></pre><p>&#x7981;&#x7528;&#xFF1A;</p>
 <pre><code>systemctl stop firewalld
-</code></pre><h4 id="直接添加服务"><a href="#直接添加服务" class="headerlink" title="直接添加服务"></a>直接添加服务</h4><pre><code>firewall-cmd --permanent --zone=public --add-service=http
+</code></pre><h4 id="&#x76F4;&#x63A5;&#x6DFB;&#x52A0;&#x670D;&#x52A1;"><a href="#&#x76F4;&#x63A5;&#x6DFB;&#x52A0;&#x670D;&#x52A1;" class="headerlink" title="&#x76F4;&#x63A5;&#x6DFB;&#x52A0;&#x670D;&#x52A1;"></a>&#x76F4;&#x63A5;&#x6DFB;&#x52A0;&#x670D;&#x52A1;</h4><pre><code>firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --reload
-</code></pre><h4 id="添加端口（–permanent永久生效，没有此参数重启后失效）"><a href="#添加端口（–permanent永久生效，没有此参数重启后失效）" class="headerlink" title="添加端口（–permanent永久生效，没有此参数重启后失效）"></a>添加端口（–permanent永久生效，没有此参数重启后失效）</h4><pre><code>firewall-cmd --permanent --zone=public --add-port=80/tcp
-</code></pre><h4 id="重新载入"><a href="#重新载入" class="headerlink" title="重新载入"></a>重新载入</h4><pre><code>firewall-cmd --reload
-</code></pre><h4 id="查看端口"><a href="#查看端口" class="headerlink" title="查看端口"></a>查看端口</h4><pre><code>firewall-cmd --zone=public --query-port=80/tcp
-</code></pre><h4 id="删除端口"><a href="#删除端口" class="headerlink" title="删除端口"></a>删除端口</h4><pre><code>firewall-cmd --permanent --zone=public --remove-port=80/tcp
-</code></pre><h4 id="已开放端口"><a href="#已开放端口" class="headerlink" title="已开放端口"></a>已开放端口</h4><p>firewall-cmd –permanent –list-port</p>
+</code></pre><h4 id="&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF08;&#x2013;permanent&#x6C38;&#x4E45;&#x751F;&#x6548;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x53C2;&#x6570;&#x91CD;&#x542F;&#x540E;&#x5931;&#x6548;&#xFF09;"><a href="#&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF08;&#x2013;permanent&#x6C38;&#x4E45;&#x751F;&#x6548;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x53C2;&#x6570;&#x91CD;&#x542F;&#x540E;&#x5931;&#x6548;&#xFF09;" class="headerlink" title="&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF08;&#x2013;permanent&#x6C38;&#x4E45;&#x751F;&#x6548;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x53C2;&#x6570;&#x91CD;&#x542F;&#x540E;&#x5931;&#x6548;&#xFF09;"></a>&#x6DFB;&#x52A0;&#x7AEF;&#x53E3;&#xFF08;&#x2013;permanent&#x6C38;&#x4E45;&#x751F;&#x6548;&#xFF0C;&#x6CA1;&#x6709;&#x6B64;&#x53C2;&#x6570;&#x91CD;&#x542F;&#x540E;&#x5931;&#x6548;&#xFF09;</h4><pre><code>firewall-cmd --permanent --zone=public --add-port=80/tcp
+</code></pre><h4 id="&#x91CD;&#x65B0;&#x8F7D;&#x5165;"><a href="#&#x91CD;&#x65B0;&#x8F7D;&#x5165;" class="headerlink" title="&#x91CD;&#x65B0;&#x8F7D;&#x5165;"></a>&#x91CD;&#x65B0;&#x8F7D;&#x5165;</h4><pre><code>firewall-cmd --reload
+</code></pre><h4 id="&#x67E5;&#x770B;&#x7AEF;&#x53E3;"><a href="#&#x67E5;&#x770B;&#x7AEF;&#x53E3;" class="headerlink" title="&#x67E5;&#x770B;&#x7AEF;&#x53E3;"></a>&#x67E5;&#x770B;&#x7AEF;&#x53E3;</h4><pre><code>firewall-cmd --zone=public --query-port=80/tcp
+</code></pre><h4 id="&#x5220;&#x9664;&#x7AEF;&#x53E3;"><a href="#&#x5220;&#x9664;&#x7AEF;&#x53E3;" class="headerlink" title="&#x5220;&#x9664;&#x7AEF;&#x53E3;"></a>&#x5220;&#x9664;&#x7AEF;&#x53E3;</h4><pre><code>firewall-cmd --permanent --zone=public --remove-port=80/tcp
+</code></pre><h4 id="&#x5DF2;&#x5F00;&#x653E;&#x7AEF;&#x53E3;"><a href="#&#x5DF2;&#x5F00;&#x653E;&#x7AEF;&#x53E3;" class="headerlink" title="&#x5DF2;&#x5F00;&#x653E;&#x7AEF;&#x53E3;"></a>&#x5DF2;&#x5F00;&#x653E;&#x7AEF;&#x53E3;</h4><p>firewall-cmd &#x2013;permanent &#x2013;list-port</p>
 
       
     </div>
