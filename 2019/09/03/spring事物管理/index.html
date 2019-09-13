@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>spring事物管理 | 学习笔记</title>
+  <meta name="author" content="Zhang Yuan">
+  
+  <meta name="description" content="Spring&amp;#x5E76;&amp;#x4E0D;&amp;#x76F4;&amp;#x63A5;&amp;#x7BA1;&amp;#x7406;&amp;#x4E8B;&amp;#x52A1;&amp;#xFF0C;&amp;#x800C;&amp;#x662F;&amp;#x63D0;&amp;#x4F9B;&amp;#x4E86;&amp;#x591A;&amp;#x79CD;&amp;#x4E8B;&amp;#x52A1;">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="spring事物管理"/>
+  <meta property="og:site_name" content="学习笔记"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="学习笔记" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">学习笔记</a></h1>
+  <h2><a href="/">不积跬步，无以至千里；不积小流，无以成江海。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">时光轴</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-09-03T04:24:01.000Z"><a href="/2019/09/03/spring事物管理/">2019年09月03日</a></time>
+      
+      
+  
+    <h1 class="title">spring事物管理</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Spring&#x5E76;&#x4E0D;&#x76F4;&#x63A5;&#x7BA1;&#x7406;&#x4E8B;&#x52A1;&#xFF0C;&#x800C;&#x662F;&#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x79CD;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668; &#xFF0C;&#x4ED6;&#x4EEC;&#x5C06;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x804C;&#x8D23;&#x59D4;&#x6258;&#x7ED9;Hibernate&#x6216;&#x8005;JTA&#x7B49;&#x6301;&#x4E45;&#x5316;&#x673A;&#x5236;&#x6240;&#x63D0;&#x4F9B;&#x7684;&#x76F8;&#x5173;&#x5E73;&#x53F0;&#x6846;&#x67B6;&#x7684;&#x4E8B;&#x52A1;&#x6765;&#x5B9E;&#x73B0;&#x3002; Spring&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668;&#x7684;&#x63A5;&#x53E3;&#x662F;&#xFF1A; org.springframework.transaction.PlatformTransactionManager&#xFF1B;</p>
+<p>PlatformTransactionManager&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;<br>Public interface PlatformTransactionManager()&#x2026;{<br>    // Return a currently active transaction or create a new one, according to the specified propagation behavior&#xFF08;&#x6839;&#x636E;&#x6307;&#x5B9A;&#x7684;&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#xFF0C;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x6D3B;&#x52A8;&#x7684;&#x4E8B;&#x52A1;&#x6216;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x4E8B;&#x52A1;&#x3002;&#xFF09;<br>    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;<br>    // Commit the given transaction, with regard to its status&#xFF08;&#x4F7F;&#x7528;&#x4E8B;&#x52A1;&#x76EE;&#x524D;&#x7684;&#x72B6;&#x6001;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#xFF09;<br>    Void commit(TransactionStatus status) throws TransactionException;<br>    // Perform a rollback of the given transaction&#xFF08;&#x5BF9;&#x6267;&#x884C;&#x7684;&#x4E8B;&#x52A1;&#x8FDB;&#x884C;&#x56DE;&#x6EDA;&#xFF09;<br>    Void rollback(TransactionStatus status) throws TransactionException;<br>    }</p>
+<p>&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668;&#x63A5;&#x53E3; PlatformTransactionManager &#x901A;&#x8FC7; getTransaction(TransactionDefinition definition) &#x65B9;&#x6CD5;&#x6765;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x7684;&#x53C2;&#x6570;&#x662F; TransactionDefinition&#x7C7B; &#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x5C31;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x7684;&#x4E8B;&#x52A1;&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x6839;&#x636E;&#x5E95;&#x5C42;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x4E0D;&#x540C;&#x7684;&#x6301;&#x4E45;&#x5316; API &#x6216;&#x6846;&#x67B6;&#xFF0C;PlatformTransactionManager &#x7684;&#x4E3B;&#x8981;&#x5B9E;&#x73B0;&#x7C7B;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>DataSourceTransactionManager&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x4F7F;&#x7528;JDBC&#x548C;iBatis&#x8FDB;&#x884C;&#x6570;&#x636E;&#x6301;&#x4E45;&#x5316;&#x64CD;&#x4F5C;&#x7684;&#x60C5;&#x51B5;&#x3002;<br>HibernateTransactionManager&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x4F7F;&#x7528;Hibernate&#x8FDB;&#x884C;&#x6570;&#x636E;&#x6301;&#x4E45;&#x5316;&#x64CD;&#x4F5C;&#x7684;&#x60C5;&#x51B5;&#x3002;<br>JpaTransactionManager&#xFF1A;&#x9002;&#x7528;&#x4E8E;&#x4F7F;&#x7528;JPA&#x8FDB;&#x884C;&#x6570;&#x636E;&#x6301;&#x4E45;&#x5316;&#x64CD;&#x4F5C;&#x7684;&#x60C5;&#x51B5;&#x3002;<br>&#x53E6;&#x5916;&#x8FD8;&#x6709;JtaTransactionManager &#x3001;JdoTransactionManager&#x3001;JmsTransactionManager&#x7B49;&#x7B49;&#x3002;<br>&#x5982;&#x679C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;JTA&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; JNDI &#x548C; Spring &#x7684; JtaTransactionManager &#x6765;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x7BA1;&#x7406;&#x7684; DataSource&#x3002;JtaTransactionManager &#x4E0D;&#x9700;&#x8981;&#x77E5;&#x9053; DataSource &#x548C;&#x5176;&#x4ED6;&#x7279;&#x5B9A;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x5C06;&#x4F7F;&#x7528;&#x5BB9;&#x5668;&#x63D0;&#x4F9B;&#x7684;&#x5168;&#x5C40;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x3002;&#x800C;&#x5BF9;&#x4E8E;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x6BD4;&#x5982;DataSourceTransactionManager&#xFF0C;&#x5728;&#x5B9A;&#x4E49;&#x65F6;&#x9700;&#x8981;&#x63D0;&#x4F9B;&#x5E95;&#x5C42;&#x7684;&#x6570;&#x636E;&#x6E90;&#x4F5C;&#x4E3A;&#x5176;&#x5C5E;&#x6027;&#xFF0C;&#x4E5F;&#x5C31;&#x662F; DataSource&#x3002;&#x4E0E; HibernateTransactionManager &#x5BF9;&#x5E94;&#x7684;&#x662F; SessionFactory&#xFF0C;&#x4E0E; JpaTransactionManager &#x5BF9;&#x5E94;&#x7684;&#x662F; EntityManagerFactory &#x7B49;&#x7B49;&#x3002;</p>
+<p>TransactionDefinition &#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x4E3B;&#x8981;&#x65B9;&#x6CD5;&#xFF1A;<br>    public interface TransactionDefinition{<br>    int getIsolationLevel();<br>    int getPropagationBehavior();<br>    int getTimeout();<br>    boolean isReadOnly();<br>    }</p>
+<p>&#x4E8B;&#x52A1;&#x9694;&#x79BB;&#x7EA7;&#x522B;<br>&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x662F;&#x6307;&#x82E5;&#x5E72;&#x4E2A;&#x5E76;&#x53D1;&#x7684;&#x4E8B;&#x52A1;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x7A0B;&#x5EA6;&#x3002;TransactionDefinition &#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x4E94;&#x4E2A;&#x8868;&#x793A;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x5E38;&#x91CF;&#xFF1A;</p>
+<p>TransactionDefinition.ISOLATION_DEFAULT&#xFF1A;&#x8FD9;&#x662F;&#x9ED8;&#x8BA4;&#x503C;&#xFF0C;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x5E93;&#x7684;&#x9ED8;&#x8BA4;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x3002;&#x5BF9;&#x5927;&#x90E8;&#x5206;&#x6570;&#x636E;&#x5E93;&#x800C;&#x8A00;&#xFF0C;&#x901A;&#x5E38;&#x8FD9;&#x503C;&#x5C31;&#x662F;TransactionDefinition.ISOLATION_READ_COMMITTED&#x3002;<br>TransactionDefinition.ISOLATION_READ_UNCOMMITTED&#xFF1A;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x53E6;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4FEE;&#x6539;&#x4F46;&#x8FD8;&#x6CA1;&#x6709;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#x3002;&#x8BE5;&#x7EA7;&#x522B;&#x4E0D;&#x80FD;&#x9632;&#x6B62;&#x810F;&#x8BFB;&#x548C;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF0C;&#x56E0;&#x6B64;&#x5F88;&#x5C11;&#x4F7F;&#x7528;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x3002;<br>TransactionDefinition.ISOLATION_READ_COMMITTED&#xFF1A;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x53EA;&#x80FD;&#x8BFB;&#x53D6;&#x53E6;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5DF2;&#x7ECF;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#x3002;&#x8BE5;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x810F;&#x8BFB;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x63A8;&#x8350;&#x503C;&#x3002;<br>TransactionDefinition.ISOLATION_REPEATABLE_READ&#xFF1A;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5728;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#x53EF;&#x4EE5;&#x591A;&#x6B21;&#x91CD;&#x590D;&#x6267;&#x884C;&#x67D0;&#x4E2A;&#x67E5;&#x8BE2;&#xFF0C;&#x5E76;&#x4E14;&#x6BCF;&#x6B21;&#x8FD4;&#x56DE;&#x7684;&#x8BB0;&#x5F55;&#x90FD;&#x76F8;&#x540C;&#x3002;&#x5373;&#x4F7F;&#x5728;&#x591A;&#x6B21;&#x67E5;&#x8BE2;&#x4E4B;&#x95F4;&#x6709;&#x65B0;&#x589E;&#x7684;&#x6570;&#x636E;&#x6EE1;&#x8DB3;&#x8BE5;&#x67E5;&#x8BE2;&#xFF0C;&#x8FD9;&#x4E9B;&#x65B0;&#x589E;&#x7684;&#x8BB0;&#x5F55;&#x4E5F;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;&#x8BE5;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x810F;&#x8BFB;&#x548C;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x3002;<br>TransactionDefinition.ISOLATION_SERIALIZABLE&#xFF1A;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x52A1;&#x4F9D;&#x6B21;&#x9010;&#x4E2A;&#x6267;&#x884C;&#xFF0C;&#x8FD9;&#x6837;&#x4E8B;&#x52A1;&#x4E4B;&#x95F4;&#x5C31;&#x5B8C;&#x5168;&#x4E0D;&#x53EF;&#x80FD;&#x4EA7;&#x751F;&#x5E72;&#x6270;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x8BE5;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x810F;&#x8BFB;&#x3001;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x4EE5;&#x53CA;&#x5E7B;&#x8BFB;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x5C06;&#x4E25;&#x91CD;&#x5F71;&#x54CD;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x3002;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#x4E5F;&#x4E0D;&#x4F1A;&#x7528;&#x5230;&#x8BE5;&#x7EA7;&#x522B;&#x3002;</p>
+<p>&#x5728;&#x5178;&#x578B;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x591A;&#x4E2A;&#x4E8B;&#x52A1;&#x5E76;&#x53D1;&#x8FD0;&#x884C;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x64CD;&#x4F5C;&#x76F8;&#x540C;&#x7684;&#x6570;&#x636E;&#x6765;&#x5B8C;&#x6210;&#x5404;&#x81EA;&#x7684;&#x4EFB;&#x52A1;&#xFF08;&#x591A;&#x4E2A;&#x7528;&#x6237;&#x5BF9;&#x7EDF;&#x4E00;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF09;&#x3002;&#x5E76;&#x53D1;&#x867D;&#x7136;&#x662F;&#x5FC5;&#x987B;&#x7684;&#xFF0C;&#x4F46;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x4E00;&#x4E0B;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x810F;&#x8BFB;&#xFF08;Dirty read&#xFF09;: &#x5F53;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6B63;&#x5728;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E76;&#x4E14;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x4E86;&#x4FEE;&#x6539;&#xFF0C;&#x800C;&#x8FD9;&#x79CD;&#x4FEE;&#x6539;&#x8FD8;&#x6CA1;&#x6709;&#x63D0;&#x4EA4;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;&#x8FD9;&#x65F6;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E5F;&#x8BBF;&#x95EE;&#x4E86;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x3002;&#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x662F;&#x8FD8;&#x6CA1;&#x6709;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x8BFB;&#x5230;&#x7684;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x662F;&#x201C;&#x810F;&#x6570;&#x636E;&#x201D;&#xFF0C;&#x4F9D;&#x636E;&#x201C;&#x810F;&#x6570;&#x636E;&#x201D;&#x6240;&#x505A;&#x7684;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x662F;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#x3002;</p>
+<p>&#x4E22;&#x5931;&#x4FEE;&#x6539;&#xFF08;Lost to modify&#xFF09;: &#x6307;&#x5728;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E5F;&#x8BBF;&#x95EE;&#x4E86;&#x8BE5;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#x4FEE;&#x6539;&#x4E86;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x4E8B;&#x52A1;&#x4E5F;&#x4FEE;&#x6539;&#x4E86;&#x8FD9;&#x4E2A;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x6837;&#x7B2C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5185;&#x7684;&#x4FEE;&#x6539;&#x7ED3;&#x679C;&#x5C31;&#x88AB;&#x4E22;&#x5931;&#xFF0C;&#x56E0;&#x6B64;&#x79F0;&#x4E3A;&#x4E22;&#x5931;&#x4FEE;&#x6539;&#x3002;<br>&#x4F8B;&#x5982;&#xFF1A;&#x4E8B;&#x52A1;1&#x8BFB;&#x53D6;&#x67D0;&#x8868;&#x4E2D;&#x7684;&#x6570;&#x636E;A=20&#xFF0C;&#x4E8B;&#x52A1;2&#x4E5F;&#x8BFB;&#x53D6;A=20&#xFF0C;&#x4E8B;&#x52A1;1&#x4FEE;&#x6539;A=A-1&#xFF0C;&#x4E8B;&#x52A1;2&#x4E5F;&#x4FEE;&#x6539;A=A-1&#xFF0C;&#x6700;&#x7EC8;&#x7ED3;&#x679C;A=19&#xFF0C;&#x4E8B;&#x52A1;1&#x7684;&#x4FEE;&#x6539;&#x88AB;&#x4E22;&#x5931;&#x3002;</p>
+<p>&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF08;Unrepeatableread&#xFF09;: &#x6307;&#x5728;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5185;&#x591A;&#x6B21;&#x8BFB;&#x540C;&#x4E00;&#x6570;&#x636E;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x4E8B;&#x52A1;&#x8FD8;&#x6CA1;&#x6709;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E5F;&#x8BBF;&#x95EE;&#x8BE5;&#x6570;&#x636E;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;&#x4E24;&#x6B21;&#x8BFB;&#x6570;&#x636E;&#x4E4B;&#x95F4;&#xFF0C;&#x7531;&#x4E8E;&#x7B2C;&#x4E8C;&#x4E2A;&#x4E8B;&#x52A1;&#x7684;&#x4FEE;&#x6539;&#x5BFC;&#x81F4;&#x7B2C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E24;&#x6B21;&#x8BFB;&#x53D6;&#x7684;&#x6570;&#x636E;&#x53EF;&#x80FD;&#x4E0D;&#x592A;&#x4E00;&#x6837;&#x3002;&#x8FD9;&#x5C31;&#x53D1;&#x751F;&#x4E86;&#x5728;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5185;&#x4E24;&#x6B21;&#x8BFB;&#x5230;&#x7684;&#x6570;&#x636E;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x56E0;&#x6B64;&#x79F0;&#x4E3A;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x3002;</p>
+<p>&#x5E7B;&#x8BFB;&#xFF08;Phantom read&#xFF09;: &#x5E7B;&#x8BFB;&#x4E0E;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x7C7B;&#x4F3C;&#x3002;&#x5B83;&#x53D1;&#x751F;&#x5728;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF08;T1&#xFF09;&#x8BFB;&#x53D6;&#x4E86;&#x51E0;&#x884C;&#x6570;&#x636E;&#xFF0C;&#x63A5;&#x7740;&#x53E6;&#x4E00;&#x4E2A;&#x5E76;&#x53D1;&#x4E8B;&#x52A1;&#xFF08;T2&#xFF09;&#x63D2;&#x5165;&#x4E86;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x65F6;&#x3002;&#x5728;&#x968F;&#x540E;&#x7684;&#x67E5;&#x8BE2;&#x4E2D;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF08;T1&#xFF09;&#x5C31;&#x4F1A;&#x53D1;&#x73B0;&#x591A;&#x4E86;&#x4E00;&#x4E9B;&#x539F;&#x672C;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x5C31;&#x597D;&#x50CF;&#x53D1;&#x751F;&#x4E86;&#x5E7B;&#x89C9;&#x4E00;&#x6837;&#xFF0C;&#x6240;&#x4EE5;&#x79F0;&#x4E3A;&#x5E7B;&#x8BFB;&#x3002;</p>
+<p>&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x5EA6;&#x548C;&#x5E7B;&#x8BFB;&#x533A;&#x522B;&#xFF1A;<br>&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x7684;&#x91CD;&#x70B9;&#x662F;&#x4FEE;&#x6539;&#xFF0C;&#x5E7B;&#x8BFB;&#x7684;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x65B0;&#x589E;&#x6216;&#x8005;&#x5220;&#x9664;&#x3002;<br>&#x4F8B;1&#xFF08;&#x540C;&#x6837;&#x7684;&#x6761;&#x4EF6;, &#x4F60;&#x8BFB;&#x53D6;&#x8FC7;&#x7684;&#x6570;&#x636E;, &#x518D;&#x6B21;&#x8BFB;&#x53D6;&#x51FA;&#x6765;&#x53D1;&#x73B0;&#x503C;&#x4E0D;&#x4E00;&#x6837;&#x4E86; &#xFF09;&#xFF1A;&#x4E8B;&#x52A1;1&#x4E2D;&#x7684;A&#x5148;&#x751F;&#x8BFB;&#x53D6;&#x81EA;&#x5DF1;&#x7684;&#x5DE5;&#x8D44;&#x4E3A;     1000&#x7684;&#x64CD;&#x4F5C;&#x8FD8;&#x6CA1;&#x5B8C;&#x6210;&#xFF0C;&#x4E8B;&#x52A1;2&#x4E2D;&#x7684;B&#x5148;&#x751F;&#x5C31;&#x4FEE;&#x6539;&#x4E86;A&#x7684;&#x5DE5;&#x8D44;&#x4E3A;2000&#xFF0C;&#x5BFC;        &#x81F4;A&#x518D;&#x8BFB;&#x81EA;&#x5DF1;&#x7684;&#x5DE5;&#x8D44;&#x65F6;&#x5DE5;&#x8D44;&#x53D8;&#x4E3A;  2000&#xFF1B;&#x8FD9;&#x5C31;&#x662F;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x3002;<br>&#x4F8B;2&#xFF08;&#x540C;&#x6837;&#x7684;&#x6761;&#x4EF6;, &#x7B2C;1&#x6B21;&#x548C;&#x7B2C;2&#x6B21;&#x8BFB;&#x51FA;&#x6765;&#x7684;&#x8BB0;&#x5F55;&#x6570;&#x4E0D;&#x4E00;&#x6837; &#xFF09;&#xFF1A;&#x5047;&#x67D0;&#x5DE5;&#x8D44;&#x5355;&#x8868;&#x4E2D;&#x5DE5;&#x8D44;&#x5927;&#x4E8E;3000&#x7684;&#x6709;4&#x4EBA;&#xFF0C;&#x4E8B;&#x52A1;1&#x8BFB;&#x53D6;&#x4E86;&#x6240;&#x6709;&#x5DE5;&#x8D44;&#x5927;&#x4E8E;3000&#x7684;&#x4EBA;&#xFF0C;&#x5171;&#x67E5;&#x5230;4&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x8FD9;&#x65F6;&#x4E8B;&#x52A1;2 &#x53C8;&#x63D2;&#x5165;&#x4E86;&#x4E00;&#x6761;&#x5DE5;&#x8D44;&#x5927;&#x4E8E;3000&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x4E8B;&#x52A1;1&#x518D;&#x6B21;&#x8BFB;&#x53D6;&#x65F6;&#x67E5;&#x5230;&#x7684;&#x8BB0;&#x5F55;&#x5C31;&#x53D8;&#x4E3A;&#x4E86;5&#x6761;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x5BFC;&#x81F4;&#x4E86;&#x5E7B;&#x8BFB;&#x3002;</p>
+<p>&#x4E8B;&#x52A1;&#x4F20;&#x64AD;&#x884C;&#x4E3A;<br>&#x6240;&#x8C13;&#x4E8B;&#x52A1;&#x7684;&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#x662F;&#x6307;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x5F00;&#x59CB;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x4E4B;&#x524D;&#xFF0C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E0A;&#x4E0B;&#x6587;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#xFF0C;&#x6B64;&#x65F6;&#x6709;&#x82E5;&#x5E72;&#x9009;&#x9879;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6027;&#x65B9;&#x6CD5;&#x7684;&#x6267;&#x884C;&#x884C;&#x4E3A;&#x3002;&#x5728;TransactionDefinition&#x5B9A;&#x4E49;&#x4E2D;&#x5305;&#x62EC;&#x4E86;&#x5982;&#x4E0B;&#x51E0;&#x4E2A;&#x8868;&#x793A;&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#x7684;&#x5E38;&#x91CF;&#xFF1A;</p>
+<p>TransactionDefinition.PROPAGATION_REQUIRED&#xFF1A;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x8BE5;&#x4E8B;&#x52A1;&#xFF1B;&#x5982;&#x679C;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4E8B;&#x52A1;&#x3002;<br>TransactionDefinition.PROPAGATION_REQUIRES_NEW&#xFF1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4E8B;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x628A;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x6302;&#x8D77;&#x3002;<br>TransactionDefinition.PROPAGATION_SUPPORTS&#xFF1A;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x8BE5;&#x4E8B;&#x52A1;&#xFF1B;&#x5982;&#x679C;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x4EE5;&#x975E;&#x4E8B;&#x52A1;&#x7684;&#x65B9;&#x5F0F;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;&#x3002;<br>TransactionDefinition.PROPAGATION_NOT_SUPPORTED&#xFF1A;&#x4EE5;&#x975E;&#x4E8B;&#x52A1;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x628A;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x6302;&#x8D77;&#x3002;<br>TransactionDefinition.PROPAGATION_NEVER&#xFF1A;&#x4EE5;&#x975E;&#x4E8B;&#x52A1;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;<br>TransactionDefinition.PROPAGATION_MANDATORY&#xFF1A;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x8BE5;&#x4E8B;&#x52A1;&#xFF1B;&#x5982;&#x679C;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;<br>TransactionDefinition.PROPAGATION_NESTED&#xFF1A;&#x5982;&#x679C;&#x5F53;&#x524D;&#x5B58;&#x5728;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4F5C;&#x4E3A;&#x5F53;&#x524D;&#x4E8B;&#x52A1;&#x7684;&#x5D4C;&#x5957;&#x4E8B;&#x52A1;&#x6765;&#x8FD0;&#x884C;&#xFF1B;&#x5982;&#x679C;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x4E8B;&#x52A1;&#xFF0C;&#x5219;&#x8BE5;&#x53D6;&#x503C;&#x7B49;&#x4EF7;&#x4E8E;TransactionDefinition.PROPAGATION_REQUIRED&#x3002;</p>
+<p>&#x4E8B;&#x52A1;&#x8D85;&#x65F6;<br>&#x6240;&#x8C13;&#x4E8B;&#x52A1;&#x8D85;&#x65F6;&#xFF0C;&#x5C31;&#x662F;&#x6307;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6240;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x957F;&#x65F6;&#x95F4;&#xFF0C;&#x5982;&#x679C;&#x8D85;&#x8FC7;&#x8BE5;&#x65F6;&#x95F4;&#x9650;&#x5236;&#x4F46;&#x4E8B;&#x52A1;&#x8FD8;&#x6CA1;&#x6709;&#x5B8C;&#x6210;&#xFF0C;&#x5219;&#x81EA;&#x52A8;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x3002;&#x5728; TransactionDefinition &#x4E2D;&#x4EE5; int &#x7684;&#x503C;&#x6765;&#x8868;&#x793A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#xFF0C;&#x5176;&#x5355;&#x4F4D;&#x662F;&#x79D2;&#x3002;</p>
+<p>&#x4E8B;&#x52A1;&#x7684;&#x53EA;&#x8BFB;&#x5C5E;&#x6027;<br>&#x4E8B;&#x52A1;&#x7684;&#x53EA;&#x8BFB;&#x5C5E;&#x6027;&#x662F;&#x6307;&#xFF0C;&#x5BF9;&#x4E8B;&#x52A1;&#x6027;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x53EA;&#x8BFB;&#x64CD;&#x4F5C;&#x6216;&#x8005;&#x662F;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#x3002;&#x6240;&#x8C13;&#x4E8B;&#x52A1;&#x6027;&#x8D44;&#x6E90;&#x5C31;&#x662F;&#x6307;&#x90A3;&#x4E9B;&#x88AB;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x6BD4;&#x5982;&#x6570;&#x636E;&#x6E90;&#x3001; JMS &#x8D44;&#x6E90;&#xFF0C;&#x4EE5;&#x53CA;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x4E8B;&#x52A1;&#x6027;&#x8D44;&#x6E90;&#x7B49;&#x7B49;&#x3002;&#x5982;&#x679C;&#x786E;&#x5B9A;&#x53EA;&#x5BF9;&#x4E8B;&#x52A1;&#x6027;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x53EA;&#x8BFB;&#x64CD;&#x4F5C;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x4E8B;&#x52A1;&#x6807;&#x5FD7;&#x4E3A;&#x53EA;&#x8BFB;&#x7684;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x7684;&#x6027;&#x80FD;&#x3002;&#x5728; TransactionDefinition &#x4E2D;&#x4EE5; boolean &#x7C7B;&#x578B;&#x6765;&#x8868;&#x793A;&#x8BE5;&#x4E8B;&#x52A1;&#x662F;&#x5426;&#x53EA;&#x8BFB;&#x3002;</p>
+<p>&#x4E8B;&#x52A1;&#x7684;&#x56DE;&#x6EDA;&#x89C4;&#x5219;<br>&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x4E8B;&#x52A1;&#x4E2D;&#x629B;&#x51FA;&#x4E86;&#x672A;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#xFF08;&#x7EE7;&#x627F;&#x81EA; RuntimeException &#x7684;&#x5F02;&#x5E38;&#xFF09;&#xFF0C;&#x5219;&#x9ED8;&#x8BA4;&#x5C06;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x629B;&#x51FA;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;&#xFF0C;&#x6216;&#x8005;&#x629B;&#x51FA;&#x4E86;&#x5DF2;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x4ECD;&#x7136;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#x3002;&#x8FD9;&#x901A;&#x5E38;&#x4E5F;&#x662F;&#x5927;&#x591A;&#x6570;&#x5F00;&#x53D1;&#x8005;&#x5E0C;&#x671B;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x4E5F;&#x662F; EJB &#x4E2D;&#x7684;&#x9ED8;&#x8BA4;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#x4EBA;&#x4E3A;&#x63A7;&#x5236;&#x4E8B;&#x52A1;&#x5728;&#x629B;&#x51FA;&#x67D0;&#x4E9B;&#x672A;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#x65F6;&#x4EFB;&#x7136;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#xFF0C;&#x6216;&#x8005;&#x5728;&#x629B;&#x51FA;&#x67D0;&#x4E9B;&#x5DF2;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#x65F6;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x3002;</p>
+<p>TransactionStatus</p>
+<p>PlatformTransactionManager.getTransaction(&#x2026;) &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; TransactionStatus &#x5BF9;&#x8C61;&#x3002;&#x8FD4;&#x56DE;&#x7684;TransactionStatus &#x5BF9;&#x8C61;&#x53EF;&#x80FD;&#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6216;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;&#x4E8B;&#x52A1;&#xFF08;&#x5982;&#x679C;&#x5728;&#x5F53;&#x524D;&#x8C03;&#x7528;&#x5806;&#x6808;&#x6709;&#x4E00;&#x4E2A;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x4E8B;&#x52A1;&#xFF09;&#x3002;TransactionStatus &#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x63A7;&#x5236;&#x4E8B;&#x52A1;&#x6267;&#x884C;&#x548C;&#x67E5;&#x8BE2;&#x4E8B;&#x52A1;&#x72B6;&#x6001;&#x7684;&#x65B9;&#x6CD5;&#x3002;<br>TransactionStatus &#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x4E3B;&#x8981;&#x65B9;&#x6CD5;&#xFF1A;<br>    public  interface TransactionStatus{<br>       boolean isNewTransaction();<br>       void setRollbackOnly();<br>       boolean isRollbackOnly();<br>    }</p>
+<p>&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;</p>
+<pre><code>Spring &#x7684;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x6982;&#x8FF0;
+&#x5728; Spring &#x51FA;&#x73B0;&#x4EE5;&#x524D;&#xFF0C;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5BF9;&#x57FA;&#x4E8E; POJO &#x7684;&#x5E94;&#x7528;&#x6765;&#x8BF4;&#x662F;&#x552F;&#x4E00;&#x9009;&#x62E9;&#x3002;&#x7528;&#x8FC7; Hibernate &#x7684;&#x4EBA;&#x90FD;&#x77E5;&#x9053;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x663E;&#x5F0F;&#x8C03;&#x7528;beginTransaction()&#x3001;commit()&#x3001;rollback()&#x7B49;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x3002;&#x901A;&#x8FC7; Spring &#x63D0;&#x4F9B;&#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406; API&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x7075;&#x6D3B;&#x63A7;&#x5236;&#x4E8B;&#x52A1;&#x7684;&#x6267;&#x884C;&#x3002;&#x5728;&#x5E95;&#x5C42;&#xFF0C;Spring &#x4ECD;&#x7136;&#x5C06;&#x4E8B;&#x52A1;&#x64CD;&#x4F5C;&#x59D4;&#x6258;&#x7ED9;&#x5E95;&#x5C42;&#x7684;&#x6301;&#x4E45;&#x5316;&#x6846;&#x67B6;&#x6765;&#x6267;&#x884C;&#x3002;
+
+&#x57FA;&#x4E8E;&#x5E95;&#x5C42; API &#x7684;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;
+&#x6839;&#x636E;PlatformTransactionManager&#x3001;TransactionDefinition &#x548C; TransactionStatus &#x4E09;&#x4E2A;&#x6838;&#x5FC3;&#x63A5;&#x53E3;&#xFF0C;&#x6211;&#x4EEC;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F16;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x3002;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;
+
+&#x57FA;&#x4E8E;&#x5E95;&#x5C42; API &#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x793A;&#x4F8B;&#x4EE3;&#x7801;
+public class BankServiceImpl implements BankService {
+private BankDao bankDao;
+private TransactionDefinition txDefinition;
+private PlatformTransactionManager txManager;
+......
+public boolean transfer(Long fromId&#xFF0C; Long toId&#xFF0C; double amount) {
+TransactionStatus txStatus = txManager.getTransaction(txDefinition);
+boolean result = false;
+try {
+result = bankDao.transfer(fromId&#xFF0C; toId&#xFF0C; amount);
+txManager.commit(txStatus);
+} catch (Exception e) {
+result = false;
+txManager.rollback(txStatus);
+System.out.println(&quot;Transfer Error!&quot;);
+}
+return result;
+}
+}
+&#x76F8;&#x5E94;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5982;&#x6E05;&#x5355;5&#x6240;&#x793A;&#xFF1A;
+
+&#x6E05;&#x5355;5. &#x57FA;&#x4E8E;&#x5E95;&#x5C42;API&#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x793A;&#x4F8B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+&lt;bean id=&quot;bankService&quot; class=&quot;footmark.spring.core.tx.programmatic.origin.BankServiceImpl&quot;&gt;
+&lt;property name=&quot;bankDao&quot; ref=&quot;bankDao&quot;/&gt;
+&lt;property name=&quot;txManager&quot; ref=&quot;transactionManager&quot;/&gt;
+&lt;property name=&quot;txDefinition&quot;&gt;
+&lt;bean class=&quot;org.springframework.transaction.support.DefaultTransactionDefinition&quot;&gt;
+&lt;property name=&quot;propagationBehaviorName&quot; value=&quot;PROPAGATION_REQUIRED&quot;/&gt;
+&lt;/bean&gt;
+&lt;/property&gt;
+&lt;/bean&gt;
+&#x5982;&#x4E0A;&#x6240;&#x793A;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x7C7B;&#x4E2D;&#x589E;&#x52A0;&#x4E86;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#xFF1A;&#x4E00;&#x4E2A;&#x662F; TransactionDefinition &#x7C7B;&#x578B;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5B83;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF1B;&#x53E6;&#x4E00;&#x4E2A;&#x662F; PlatformTransactionManager &#x7C7B;&#x578B;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x7528;&#x4E8E;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x64CD;&#x4F5C;&#x3002;
+
+&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x5B9E;&#x65BD;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x9700;&#x8981;&#x5728;&#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x524D;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF0C;&#x8C03;&#x7528;PlatformTransactionManager.getTransaction(...) &#x65B9;&#x6CD5;&#x4FBF;&#x53EF;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x3002;&#x521B;&#x5EFA;&#x5E76;&#x542F;&#x52A8;&#x4E86;&#x4E8B;&#x52A1;&#x4E4B;&#x540E;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4EE3;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x9002;&#x5F53;&#x7684;&#x5730;&#x65B9;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x7684;&#x63D0;&#x4EA4;&#x6216;&#x8005;&#x56DE;&#x6EDA;&#x3002;
+
+&#x57FA;&#x4E8E; TransactionTemplate &#x7684;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;
+&#x901A;&#x8FC7;&#x524D;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x8FD9;&#x79CD;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x65B9;&#x5F0F;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x4F46;&#x4EE4;&#x4EBA;&#x5934;&#x75BC;&#x7684;&#x662F;&#xFF0C;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x4EE3;&#x7801;&#x6563;&#x843D;&#x5728;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x7834;&#x574F;&#x4E86;&#x539F;&#x6709;&#x4EE3;&#x7801;&#x7684;&#x6761;&#x7406;&#x6027;&#xFF0C;&#x5E76;&#x4E14;&#x6BCF;&#x4E00;&#x4E2A;&#x4E1A;&#x52A1;&#x65B9;&#x6CD5;&#x90FD;&#x5305;&#x542B;&#x4E86;&#x7C7B;&#x4F3C;&#x7684;&#x542F;&#x52A8;&#x4E8B;&#x52A1;&#x3001;&#x63D0;&#x4EA4;/&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x7684;&#x6837;&#x677F;&#x4EE3;&#x7801;&#x3002;&#x5E78;&#x597D;&#xFF0C;Spring &#x4E5F;&#x610F;&#x8BC6;&#x5230;&#x4E86;&#x8FD9;&#x4E9B;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x4E86;&#x7B80;&#x5316;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x5C31;&#x662F; Spring &#x5728;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x5C42;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#x7684;&#x6A21;&#x677F;&#x56DE;&#x8C03;&#x6A21;&#x5F0F;&#x3002;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;
+
+&#x57FA;&#x4E8E; TransactionTemplate &#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x793A;&#x4F8B;&#x4EE3;&#x7801;
+public class BankServiceImpl implements BankService {
+private BankDao bankDao;
+private TransactionTemplate transactionTemplate;
+......
+public boolean transfer(final Long fromId&#xFF0C; final Long toId&#xFF0C; final double amount) {
+return (Boolean) transactionTemplate.execute(new TransactionCallback(){
+public Object doInTransaction(TransactionStatus status) {
+Object result;
+try {
+result = bankDao.transfer(fromId&#xFF0C; toId&#xFF0C; amount);
+} catch (Exception e) {
+status.setRollbackOnly();
+result = false;
+System.out.println(&quot;Transfer Error!&quot;);
+}
+return result;
+}
+});
+}
+}
+&#x76F8;&#x5E94;&#x7684;XML&#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;
+
+&#x57FA;&#x4E8E; TransactionTemplate &#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x793A;&#x4F8B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+&lt;bean id=&quot;bankService&quot;
+class=&quot;footmark.spring.core.tx.programmatic.template.BankServiceImpl&quot;&gt;
+&lt;property name=&quot;bankDao&quot; ref=&quot;bankDao&quot;/&gt;
+&lt;property name=&quot;transactionTemplate&quot; ref=&quot;transactionTemplate&quot;/&gt;
+&lt;/bean&gt;
+TransactionTemplate &#x7684; execute() &#x65B9;&#x6CD5;&#x6709;&#x4E00;&#x4E2A; TransactionCallback &#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8BE5;&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; doInTransaction() &#x65B9;&#x6CD5;&#xFF0C;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x4EE5;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0; TransactionCallback &#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x5728;&#x5176; doInTransaction() &#x65B9;&#x6CD5;&#x4E2D;&#x4E66;&#x5199;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4EE3;&#x7801;&#x3002;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x548C;&#x56DE;&#x6EDA;&#x89C4;&#x5219;&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x4E2D;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x663E;&#x5F0F;&#x8C03;&#x7528;&#x4EFB;&#x4F55;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684; API&#x3002;doInTransaction() &#x65B9;&#x6CD5;&#x6709;&#x4E00;&#x4E2A;TransactionStatus &#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x4EFB;&#x4F55;&#x4F4D;&#x7F6E;&#x8C03;&#x7528;&#x8BE5;&#x53C2;&#x6570;&#x7684; setRollbackOnly() &#x65B9;&#x6CD5;&#x5C06;&#x4E8B;&#x52A1;&#x6807;&#x8BC6;&#x4E3A;&#x56DE;&#x6EDA;&#x7684;&#xFF0C;&#x4EE5;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x56DE;&#x6EDA;&#x3002;
+
+&#x6839;&#x636E;&#x9ED8;&#x8BA4;&#x89C4;&#x5219;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x6267;&#x884C;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x629B;&#x51FA;&#x4E86;&#x672A;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#xFF0C;&#x6216;&#x8005;&#x663E;&#x5F0F;&#x8C03;&#x7528;&#x4E86;TransacationStatus.setRollbackOnly() &#x65B9;&#x6CD5;&#xFF0C;&#x5219;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#xFF1B;&#x5982;&#x679C;&#x4E8B;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x6216;&#x8005;&#x629B;&#x51FA;&#x4E86; checked &#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#x3002;
+
+TransactionCallback &#x63A5;&#x53E3;&#x6709;&#x4E00;&#x4E2A;&#x5B50;&#x63A5;&#x53E3; TransactionCallbackWithoutResult&#xFF0C;&#x8BE5;&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; doInTransactionWithoutResult() &#x65B9;&#x6CD5;&#xFF0C;TransactionCallbackWithoutResult &#x63A5;&#x53E3;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x4E8B;&#x52A1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E0D;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; TransactionCallback &#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x5728;&#x65B9;&#x6CD5;&#x4E2D;&#x8FD4;&#x56DE;&#x4EFB;&#x610F;&#x503C;&#x5373;&#x53EF;&#x3002;
+</code></pre><p>&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;</p>
+<pre><code>Spring &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x6982;&#x8FF0;
+Spring &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5728;&#x5E95;&#x5C42;&#x662F;&#x5EFA;&#x7ACB;&#x5728; AOP &#x7684;&#x57FA;&#x7840;&#x4E4B;&#x4E0A;&#x7684;&#x3002;&#x5176;&#x672C;&#x8D28;&#x662F;&#x5BF9;&#x65B9;&#x6CD5;&#x524D;&#x540E;&#x8FDB;&#x884C;&#x62E6;&#x622A;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x76EE;&#x6807;&#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#x521B;&#x5EFA;&#x6216;&#x8005;&#x52A0;&#x5165;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x5B8C;&#x76EE;&#x6807;&#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#x6839;&#x636E;&#x6267;&#x884C;&#x60C5;&#x51B5;&#x63D0;&#x4EA4;&#x6216;&#x8005;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x3002;
+
+&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x6700;&#x5927;&#x7684;&#x4F18;&#x70B9;&#x5C31;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x7F16;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x7BA1;&#x7406;&#x4E8B;&#x52A1;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x5728;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4EE3;&#x7801;&#x4E2D;&#x63BA;&#x6742;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x53EA;&#x9700;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x505A;&#x76F8;&#x5173;&#x7684;&#x4E8B;&#x52A1;&#x89C4;&#x5219;&#x58F0;&#x660E;&#xFF08;&#x6216;&#x901A;&#x8FC7;&#x7B49;&#x4EF7;&#x7684;&#x57FA;&#x4E8E;&#x6807;&#x6CE8;&#x7684;&#x65B9;&#x5F0F;&#xFF09;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x5C06;&#x4E8B;&#x52A1;&#x89C4;&#x5219;&#x5E94;&#x7528;&#x5230;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4E2D;&#x3002;&#x56E0;&#x4E3A;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x672C;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x6A2A;&#x5207;&#x903B;&#x8F91;&#xFF0C;&#x6B63;&#x662F; AOP &#x7684;&#x7528;&#x6B66;&#x4E4B;&#x5730;&#x3002;Spring &#x5F00;&#x53D1;&#x56E2;&#x961F;&#x4E5F;&#x610F;&#x8BC6;&#x5230;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x4E3A;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x63D0;&#x4F9B;&#x4E86;&#x7B80;&#x5355;&#x800C;&#x5F3A;&#x5927;&#x7684;&#x652F;&#x6301;&#x3002;
+
+&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x66FE;&#x7ECF;&#x662F; EJB &#x5F15;&#x4EE5;&#x4E3A;&#x50B2;&#x7684;&#x4E00;&#x4E2A;&#x4EAE;&#x70B9;&#xFF0C;&#x5982;&#x4ECA; Spring &#x8BA9; POJO &#x5728;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x65B9;&#x9762;&#x4E5F;&#x62E5;&#x6709;&#x4E86;&#x548C; EJB &#x4E00;&#x6837;&#x7684;&#x5F85;&#x9047;&#xFF0C;&#x8BA9;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5728; EJB &#x5BB9;&#x5668;&#x4E4B;&#x5916;&#x4E5F;&#x7528;&#x4E0A;&#x4E86;&#x5F3A;&#x5927;&#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x529F;&#x80FD;&#xFF0C;&#x8FD9;&#x4E3B;&#x8981;&#x5F97;&#x76CA;&#x4E8E; Spring &#x4F9D;&#x8D56;&#x6CE8;&#x5165;&#x5BB9;&#x5668;&#x548C; Spring AOP &#x7684;&#x652F;&#x6301;&#x3002;&#x4F9D;&#x8D56;&#x6CE8;&#x5165;&#x5BB9;&#x5668;&#x4E3A;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x63D0;&#x4F9B;&#x4E86;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#xFF0C;&#x4F7F;&#x5F97; Bean &#x5BF9;&#x4E8E; Spring &#x6846;&#x67B6;&#x800C;&#x8A00;&#x662F;&#x53EF;&#x7BA1;&#x7406;&#x7684;&#xFF1B;&#x800C; Spring AOP &#x5219;&#x662F;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x76F4;&#x63A5;&#x5B9E;&#x73B0;&#x8005;&#xFF0C;&#x8FD9;&#x4E00;&#x70B9;&#x901A;&#x8FC7;&#x6E05;&#x5355;8&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x6765;&#x3002;
+
+&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7B14;&#x8005;&#x5F3A;&#x70C8;&#x5EFA;&#x8BAE;&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#x4F7F;&#x7528;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#xFF0C;&#x4E0D;&#x4EC5;&#x56E0;&#x4E3A;&#x5176;&#x7B80;&#x5355;&#xFF0C;&#x66F4;&#x4E3B;&#x8981;&#x662F;&#x56E0;&#x4E3A;&#x8FD9;&#x6837;&#x4F7F;&#x5F97;&#x7EAF;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x4E0D;&#x88AB;&#x6C61;&#x67D3;&#xFF0C;&#x6781;&#x5927;&#x65B9;&#x4FBF;&#x540E;&#x671F;&#x7684;&#x4EE3;&#x7801;&#x7EF4;&#x62A4;&#x3002;
+
+&#x548C;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x76F8;&#x6BD4;&#xFF0C;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x552F;&#x4E00;&#x4E0D;&#x8DB3;&#x5730;&#x65B9;&#x662F;&#xFF0C;&#x540E;&#x8005;&#x7684;&#x6700;&#x7EC6;&#x7C92;&#x5EA6;&#x53EA;&#x80FD;&#x4F5C;&#x7528;&#x5230;&#x65B9;&#x6CD5;&#x7EA7;&#x522B;&#xFF0C;&#x65E0;&#x6CD5;&#x505A;&#x5230;&#x50CF;&#x7F16;&#x7A0B;&#x5F0F;&#x4E8B;&#x52A1;&#x90A3;&#x6837;&#x53EF;&#x4EE5;&#x4F5C;&#x7528;&#x5230;&#x4EE3;&#x7801;&#x5757;&#x7EA7;&#x522B;&#x3002;&#x4F46;&#x662F;&#x5373;&#x4FBF;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x4E5F;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x53D8;&#x901A;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6BD4;&#x5982;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x4EE3;&#x7801;&#x5757;&#x72EC;&#x7ACB;&#x4E3A;&#x65B9;&#x6CD5;&#x7B49;&#x7B49;&#x3002;
+
+&#x4E0B;&#x9762;&#x5C31;&#x6765;&#x770B;&#x770B; Spring &#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x529F;&#x80FD;&#x3002;
+
+&#x57FA;&#x4E8E; TransactionInter... &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;
+&#x6700;&#x521D;&#xFF0C;Spring &#x63D0;&#x4F9B;&#x4E86; TransactionInterceptor &#x7C7B;&#x6765;&#x5B9E;&#x65BD;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x529F;&#x80FD;&#x3002;&#x5148;&#x770B;&#x6E05;&#x5355;8&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;
+
+&#x57FA;&#x4E8E; TransactionInterceptor &#x7684;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x793A;&#x4F8B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+&lt;beans...&gt;
+......
+&lt;bean id=&quot;transactionInterceptor&quot;
+class=&quot;org.springframework.transaction.interceptor.TransactionInterceptor&quot;&gt;
+&lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;/&gt;
+&lt;property name=&quot;transactionAttributes&quot;&gt;
+&lt;props&gt;
+&lt;prop key=&quot;transfer&quot;&gt;PROPAGATION_REQUIRED&lt;/prop&gt;
+&lt;/props&gt;
+&lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;bankServiceTarget&quot;
+class=&quot;footmark.spring.core.tx.declare.origin.BankServiceImpl&quot;&gt;
+&lt;property name=&quot;bankDao&quot; ref=&quot;bankDao&quot;/&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;bankService&quot;
+class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
+&lt;property name=&quot;target&quot; ref=&quot;bankServiceTarget&quot;/&gt;
+&lt;property name=&quot;interceptorNames&quot;&gt;
+&lt;list&gt;
+&lt;idref bean=&quot;transactionInterceptor&quot;/&gt;
+&lt;/list&gt;
+&lt;/property&gt;
+&lt;/bean&gt;
+......
+&lt;/beans&gt;
+&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; TransactionInterceptor &#x6765;&#x5B9A;&#x4E49;&#x76F8;&#x5173;&#x7684;&#x4E8B;&#x52A1;&#x89C4;&#x5219;&#xFF0C;&#x4ED6;&#x6709;&#x4E24;&#x4E2A;&#x4E3B;&#x8981;&#x7684;&#x5C5E;&#x6027;&#xFF1A;&#x4E00;&#x4E2A;&#x662F; transactionManager&#xFF0C;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x5E76;&#x5C06;&#x5177;&#x4F53;&#x4E8B;&#x52A1;&#x76F8;&#x5173;&#x7684;&#x64CD;&#x4F5C;&#x59D4;&#x6258;&#x7ED9;&#x5B83;&#xFF1B;&#x53E6;&#x4E00;&#x4E2A;&#x662F; Properties &#x7C7B;&#x578B;&#x7684; transactionAttributes &#x5C5E;&#x6027;&#xFF0C;&#x5B83;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x5B9A;&#x4E49;&#x4E8B;&#x52A1;&#x89C4;&#x5219;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x4E2D;&#xFF0C;&#x952E;&#x6307;&#x5B9A;&#x7684;&#x662F;&#x65B9;&#x6CD5;&#x540D;&#xFF0C;&#x65B9;&#x6CD5;&#x540D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x901A;&#x914D;&#x7B26;&#xFF0C;&#x800C;&#x503C;&#x5C31;&#x8868;&#x793A;&#x76F8;&#x5E94;&#x65B9;&#x6CD5;&#x7684;&#x6240;&#x5E94;&#x7528;&#x7684;&#x4E8B;&#x52A1;&#x5C5E;&#x6027;&#x3002;
+
+&#x6307;&#x5B9A;&#x4E8B;&#x52A1;&#x5C5E;&#x6027;&#x7684;&#x53D6;&#x503C;&#x6709;&#x8F83;&#x590D;&#x6742;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x8FD9;&#x5728; Spring &#x4E2D;&#x7B97;&#x5F97;&#x4E0A;&#x662F;&#x4E00;&#x4EF6;&#x8BA9;&#x4EBA;&#x5934;&#x75BC;&#x7684;&#x4E8B;&#x3002;&#x5177;&#x4F53;&#x7684;&#x4E66;&#x5199;&#x89C4;&#x5219;&#x5982;&#x4E0B;&#xFF1A;
+
+1
+&#x4F20;&#x64AD;&#x884C;&#x4E3A; [&#xFF0C;&#x9694;&#x79BB;&#x7EA7;&#x522B;] [&#xFF0C;&#x53EA;&#x8BFB;&#x5C5E;&#x6027;] [&#xFF0C;&#x8D85;&#x65F6;&#x5C5E;&#x6027;] [&#x4E0D;&#x5F71;&#x54CD;&#x63D0;&#x4EA4;&#x7684;&#x5F02;&#x5E38;] [&#xFF0C;&#x5BFC;&#x81F4;&#x56DE;&#x6EDA;&#x7684;&#x5F02;&#x5E38;]
+&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#x662F;&#x552F;&#x4E00;&#x5FC5;&#x987B;&#x8BBE;&#x7F6E;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5176;&#x4ED6;&#x90FD;&#x53EF;&#x4EE5;&#x5FFD;&#x7565;&#xFF0C;Spring&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x5408;&#x7406;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x3002;
+&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#x7684;&#x53D6;&#x503C;&#x5FC5;&#x987B;&#x4EE5;&#x201C;PROPAGATION_&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x5177;&#x4F53;&#x5305;&#x62EC;&#xFF1A;PROPAGATION_MANDATORY&#x3001;PROPAGATION_NESTED&#x3001;PROPAGATION_NEVER&#x3001;PROPAGATION_NOT_SUPPORTED&#x3001;PROPAGATION_REQUIRED&#x3001;PROPAGATION_REQUIRES_NEW&#x3001;PROPAGATION_SUPPORTS&#xFF0C;&#x5171;&#x4E03;&#x79CD;&#x53D6;&#x503C;&#x3002;
+&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x53D6;&#x503C;&#x5FC5;&#x987B;&#x4EE5;&#x201C;ISOLATION_&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x5177;&#x4F53;&#x5305;&#x62EC;&#xFF1A;ISOLATION_DEFAULT&#x3001;ISOLATION_READ_COMMITTED&#x3001;ISOLATION_READ_UNCOMMITTED&#x3001;ISOLATION_REPEATABLE_READ&#x3001;ISOLATION_SERIALIZABLE&#xFF0C;&#x5171;&#x4E94;&#x79CD;&#x53D6;&#x503C;&#x3002;
+&#x5982;&#x679C;&#x4E8B;&#x52A1;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x53EA;&#x8BFB;&#x5C5E;&#x6027;&#xFF0C;&#x4F7F;&#x7528;&#x201C;readOnly&#x201D;&#x6307;&#x5B9A;&#x3002;&#x5426;&#x5219;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x8BE5;&#x5C5E;&#x6027;&#x3002;
+&#x8D85;&#x65F6;&#x5C5E;&#x6027;&#x7684;&#x53D6;&#x503C;&#x5FC5;&#x987B;&#x4EE5;&#x201C;TIMEOUT_&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x540E;&#x9762;&#x8DDF;&#x4E00;&#x4E2A;int&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x8868;&#x793A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x79D2;&#x3002;
+&#x4E0D;&#x5F71;&#x54CD;&#x63D0;&#x4EA4;&#x7684;&#x5F02;&#x5E38;&#x662F;&#x6307;&#xFF0C;&#x5373;&#x4F7F;&#x4E8B;&#x52A1;&#x4E2D;&#x629B;&#x51FA;&#x4E86;&#x8FD9;&#x4E9B;&#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x4E8B;&#x52A1;&#x4EFB;&#x7136;&#x6B63;&#x5E38;&#x63D0;&#x4EA4;&#x3002;&#x5FC5;&#x987B;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#x7684;&#x540D;&#x5B57;&#x524D;&#x9762;&#x52A0;&#x4E0A;&#x201C;+&#x201D;&#x3002;&#x5F02;&#x5E38;&#x7684;&#x540D;&#x5B57;&#x53EF;&#x4EE5;&#x662F;&#x7C7B;&#x540D;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;&#x6BD4;&#x5982;&#x201C;+RuntimeException&#x201D;&#x3001;&#x201C;+tion&#x201D;&#x7B49;&#x7B49;&#x3002;
+&#x5BFC;&#x81F4;&#x56DE;&#x6EDA;&#x7684;&#x5F02;&#x5E38;&#x662F;&#x6307;&#xFF0C;&#x5F53;&#x4E8B;&#x52A1;&#x4E2D;&#x629B;&#x51FA;&#x8FD9;&#x4E9B;&#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x4E8B;&#x52A1;&#x5C06;&#x56DE;&#x6EDA;&#x3002;&#x5FC5;&#x987B;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#x7684;&#x540D;&#x5B57;&#x524D;&#x9762;&#x52A0;&#x4E0A;&#x201C;-&#x201D;&#x3002;&#x5F02;&#x5E38;&#x7684;&#x540D;&#x5B57;&#x53EF;&#x4EE5;&#x662F;&#x7C7B;&#x540D;&#x7684;&#x5168;&#x90E8;&#x6216;&#x8005;&#x90E8;&#x5206;&#xFF0C;&#x6BD4;&#x5982;&#x201C;-RuntimeException&#x201D;&#x3001;&#x201C;-tion&#x201D;&#x7B49;&#x7B49;&#x3002;
+
+&#x4EE5;&#x4E0A;&#x8868;&#x8FBE;&#x5F0F;&#x8868;&#x793A;&#xFF0C;&#x9488;&#x5BF9;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#x540D;&#x4EE5; Service &#x7ED3;&#x5C3E;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528; PROPAGATION_REQUIRED &#x4E8B;&#x52A1;&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#xFF0C;&#x4E8B;&#x52A1;&#x7684;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x662F; ISOLATION_READ_COMMITTED&#xFF0C;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x4E3A;20&#x79D2;&#xFF0C;&#x5F53;&#x4E8B;&#x52A1;&#x629B;&#x51FA; AbcException &#x6216;&#x8005; DefException &#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x4ECD;&#x7136;&#x63D0;&#x4EA4;&#xFF0C;&#x5F53;&#x629B;&#x51FA; HijException &#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#x65F6;&#x5FC5;&#x987B;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#x3002;&#x8FD9;&#x91CC;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&quot;readOnly&quot;&#xFF0C;&#x8868;&#x793A;&#x4E8B;&#x52A1;&#x4E0D;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#x3002;
+
+1
+&lt;property name=&quot;test&quot;&gt;PROPAGATION_REQUIRED&#xFF0C;readOnly&lt;/property&gt;
+&#x4EE5;&#x4E0A;&#x8868;&#x8FBE;&#x5F0F;&#x8868;&#x793A;&#xFF0C;&#x9488;&#x5BF9;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#x540D;&#x4E3A; test &#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528; PROPAGATION_REQUIRED &#x4E8B;&#x52A1;&#x4F20;&#x64AD;&#x884C;&#x4E3A;&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;&#x4E8B;&#x52A1;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#x3002;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x5C5E;&#x6027;&#x5747;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x503C;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x548C;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x4E8B;&#x52A1;&#x6027;&#x8D44;&#x6E90;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x5F53;&#x53D1;&#x751F;&#x672A;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x56DE;&#x6EDA;&#x4E8B;&#x52A1;&#xFF0C;&#x53D1;&#x751F;&#x5DF2;&#x68C0;&#x67E5;&#x5F02;&#x5E38;&#x5219;&#x4ECD;&#x63D0;&#x4EA4;&#x4E8B;&#x52A1;&#x3002;
+
+&#x914D;&#x7F6E;&#x597D;&#x4E86; TransactionInterceptor&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x914D;&#x7F6E;&#x4E00;&#x4E2A; ProxyFactoryBean &#x6765;&#x7EC4;&#x88C5; target &#x548C;advice&#x3002;&#x8FD9;&#x4E5F;&#x662F;&#x5178;&#x578B;&#x7684; Spring AOP &#x7684;&#x505A;&#x6CD5;&#x3002;&#x901A;&#x8FC7; ProxyFactoryBean &#x751F;&#x6210;&#x7684;&#x4EE3;&#x7406;&#x7C7B;&#x5C31;&#x662F;&#x7EC7;&#x5165;&#x4E86;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x903B;&#x8F91;&#x540E;&#x7684;&#x76EE;&#x6807;&#x7C7B;&#x3002;&#x81F3;&#x6B64;&#xFF0C;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x5C31;&#x7B97;&#x662F;&#x5B9E;&#x73B0;&#x4E86;&#x3002;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x5BF9;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#xFF0C;&#x6240;&#x6709;&#x8BBE;&#x7F6E;&#x5747;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x5B8C;&#x6210;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7684;&#x6700;&#x5927;&#x4F18;&#x70B9;&#x3002;
+</code></pre><p>  &#x57FA;&#x4E8E; TransactionProxy&#x2026; &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;<br>    &#x524D;&#x9762;&#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x867D;&#x7136;&#x597D;&#xFF0C;&#x4F46;&#x662F;&#x5374;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x607C;&#x4EBA;&#x7684;&#x95EE;&#x9898;&#xFF1A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x592A;&#x591A;&#x3002;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x9488;&#x5BF9;&#x6BCF;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x5BF9;&#x8C61;&#x914D;&#x7F6E;&#x4E00;&#x4E2A; ProxyFactoryBean&#xFF1B;&#x53E6;&#x5916;&#xFF0C;&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7236;&#x5B50; Bean &#x7684;&#x65B9;&#x5F0F;&#x6765;&#x590D;&#x7528; TransactionInterceptor &#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x4F46;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x590D;&#x7528;&#x51E0;&#x7387;&#x4E5F;&#x4E0D;&#x9AD8;&#xFF1B;&#x8FD9;&#x6837;&#xFF0C;&#x52A0;&#x4E0A;&#x76EE;&#x6807;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x4E1A;&#x52A1;&#x7C7B;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5BF9;&#x5E94;&#x4E09;&#x4E2A; <bean> &#x914D;&#x7F6E;&#xFF0C;&#x968F;&#x7740;&#x4E1A;&#x52A1;&#x7C7B;&#x7684;&#x589E;&#x591A;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C06;&#x4F1A;&#x53D8;&#x5F97;&#x8D8A;&#x6765;&#x8D8A;&#x5E9E;&#x5927;&#xFF0C;&#x7BA1;&#x7406;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x53C8;&#x6210;&#x4E86;&#x95EE;&#x9898;&#x3002;</bean></p>
+<pre><code>&#x4E3A;&#x4E86;&#x7F13;&#x89E3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;Spring &#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86; TransactionProxyFactoryBean&#xFF0C;&#x7528;&#x4E8E;&#x5C06;TransactionInterceptor &#x548C; ProxyFactoryBean &#x7684;&#x914D;&#x7F6E;&#x5408;&#x4E8C;&#x4E3A;&#x4E00;&#x3002;
+</code></pre><p>  &#x57FA;&#x4E8E; <tx> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;<br>    &#x524D;&#x9762;&#x4E24;&#x79CD;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x914D;&#x7F6E;&#x65B9;&#x5F0F;&#x5960;&#x5B9A;&#x4E86; Spring &#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x57FA;&#x77F3;&#x3002;&#x5728;&#x6B64;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;Spring 2.x &#x5F15;&#x5165;&#x4E86; <tx> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF0C;&#x7ED3;&#x5408;&#x4F7F;&#x7528; <aop> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF0C;&#x5E26;&#x7ED9;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x914D;&#x7F6E;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7684;&#x5168;&#x65B0;&#x4F53;&#x9A8C;&#xFF0C;&#x914D;&#x7F6E;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x7B80;&#x5355;&#x548C;&#x7075;&#x6D3B;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x5F97;&#x76CA;&#x4E8E; <aop> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x5207;&#x70B9;&#x8868;&#x8FBE;&#x5F0F;&#x652F;&#x6301;&#xFF0C;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x4E5F;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x5F3A;&#x5927;&#x3002;</aop></aop></tx></tx></p>
+<p>  &#x57FA;&#x4E8E; @Transactional &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;<br>    &#x9664;&#x4E86;&#x57FA;&#x4E8E;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x4E8B;&#x52A1;&#x914D;&#x7F6E;&#x65B9;&#x5F0F;&#xFF0C;Spring 2.x &#x8FD8;&#x5F15;&#x5165;&#x4E86;&#x57FA;&#x4E8E; Annotation &#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5177;&#x4F53;&#x4E3B;&#x8981;&#x6D89;&#x53CA;@Transactional &#x6807;&#x6CE8;&#x3002;@Transactional &#x53EF;&#x4EE5;&#x4F5C;&#x7528;&#x4E8E;&#x63A5;&#x53E3;&#x3001;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x3001;&#x7C7B;&#x4EE5;&#x53CA;&#x7C7B;&#x65B9;&#x6CD5;&#x4E0A;&#x3002;&#x5F53;&#x4F5C;&#x7528;&#x4E8E;&#x7C7B;&#x4E0A;&#x65F6;&#xFF0C;&#x8BE5;&#x7C7B;&#x7684;&#x6240;&#x6709; public &#x65B9;&#x6CD5;&#x5C06;&#x90FD;&#x5177;&#x6709;&#x8BE5;&#x7C7B;&#x578B;&#x7684;&#x4E8B;&#x52A1;&#x5C5E;&#x6027;&#xFF0C;&#x540C;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x65B9;&#x6CD5;&#x7EA7;&#x522B;&#x4F7F;&#x7528;&#x8BE5;&#x6807;&#x6CE8;&#x6765;&#x8986;&#x76D6;&#x7C7B;&#x7EA7;&#x522B;&#x7684;&#x5B9A;&#x4E49;&#x3002;</p>
+<pre><code>&#x867D;&#x7136; @Transactional &#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x4F5C;&#x7528;&#x4E8E;&#x63A5;&#x53E3;&#x3001;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x3001;&#x7C7B;&#x4EE5;&#x53CA;&#x7C7B;&#x65B9;&#x6CD5;&#x4E0A;&#xFF0C;&#x4F46;&#x662F; Spring &#x5C0F;&#x7EC4;&#x5EFA;&#x8BAE;&#x4E0D;&#x8981;&#x5728;&#x63A5;&#x53E3;&#x6216;&#x8005;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528;&#x8BE5;&#x6CE8;&#x89E3;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x53EA;&#x6709;&#x5728;&#x4F7F;&#x7528;&#x57FA;&#x4E8E;&#x63A5;&#x53E3;&#x7684;&#x4EE3;&#x7406;&#x65F6;&#x5B83;&#x624D;&#x4F1A;&#x751F;&#x6548;&#x3002;&#x53E6;&#x5916;&#xFF0C; @Transactional &#x6CE8;&#x89E3;&#x5E94;&#x8BE5;&#x53EA;&#x88AB;&#x5E94;&#x7528;&#x5230; public &#x65B9;&#x6CD5;&#x4E0A;&#xFF0C;&#x8FD9;&#x662F;&#x7531; Spring AOP &#x7684;&#x672C;&#x8D28;&#x51B3;&#x5B9A;&#x7684;&#x3002;&#x5982;&#x679C;&#x4F60;&#x5728; protected&#x3001;private &#x6216;&#x8005;&#x9ED8;&#x8BA4;&#x53EF;&#x89C1;&#x6027;&#x7684;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528; @Transactional &#x6CE8;&#x89E3;&#xFF0C;&#x8FD9;&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x629B;&#x51FA;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;&#x3002;
+</code></pre><p>&#x57FA;&#x4E8E; <tx> &#x547D;&#x540D;&#x7A7A;&#x95F4;&#x548C;&#x57FA;&#x4E8E; @Transactional &#x7684;&#x4E8B;&#x52A1;&#x58F0;&#x660E;&#x65B9;&#x5F0F;&#x5404;&#x6709;&#x4F18;&#x7F3A;&#x70B9;&#x3002;&#x57FA;&#x4E8E; <tx> &#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5176;&#x4F18;&#x70B9;&#x662F;&#x4E0E;&#x5207;&#x70B9;&#x8868;&#x8FBE;&#x5F0F;&#x7ED3;&#x5408;&#xFF0C;&#x529F;&#x80FD;&#x5F3A;&#x5927;&#x3002;&#x5229;&#x7528;&#x5207;&#x70B9;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x591A;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x57FA;&#x4E8E; @Transactional &#x7684;&#x65B9;&#x5F0F;&#x5FC5;&#x987B;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x4E8B;&#x52A1;&#x7684;&#x65B9;&#x6CD5;&#x6216;&#x8005;&#x7C7B;&#x4E0A;&#x7528; @Transactional &#x6807;&#x6CE8;&#xFF0C;&#x5C3D;&#x7BA1;&#x53EF;&#x80FD;&#x5927;&#x591A;&#x6570;&#x4E8B;&#x52A1;&#x7684;&#x89C4;&#x5219;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5BF9; @Transactional &#x800C;&#x8A00;&#xFF0C;&#x4E5F;&#x65E0;&#x6CD5;&#x91CD;&#x7528;&#xFF0C;&#x5FC5;&#x987B;&#x9010;&#x4E2A;&#x6307;&#x5B9A;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x57FA;&#x4E8E; @Transactional &#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;&#x8D77;&#x6765;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x660E;&#x4E86;&#xFF0C;&#x6CA1;&#x6709;&#x5B66;&#x4E60;&#x6210;&#x672C;&#x3002;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#xFF0C;&#x4EFB;&#x9009;&#x5176;&#x4E2D;&#x4E00;&#x79CD;&#x4F7F;&#x7528;&#xFF0C;&#x751A;&#x81F3;&#x4E5F;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#x6DF7;&#x5408;&#x4F7F;&#x7528;&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x3002;<br>&#x5982;&#x679C;&#x4E0D;&#x662F;&#x5BF9;&#x9057;&#x7559;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x7EF4;&#x62A4;&#xFF0C;&#x5219;&#x4E0D;&#x5EFA;&#x8BAE;&#x518D;&#x4F7F;&#x7528;&#x57FA;&#x4E8E; TransactionInterceptor &#x4EE5;&#x53CA;&#x57FA;&#x4E8E;TransactionProxyFactoryBean &#x7684;&#x58F0;&#x660E;&#x5F0F;&#x4E8B;&#x52A1;&#x7BA1;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5B66;&#x4E60;&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x975E;&#x5E38;&#x6709;&#x5229;&#x4E8E;&#x5BF9;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x7684;&#x7406;&#x89E3;&#x3002;</tx></tx></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/java/">java</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Blogs/">Blogs</a><small>1</small></li>
+  
+    <li><a href="/categories/MySQL/">MySQL</a><small>3</small></li>
+  
+    <li><a href="/categories/Python/">Python</a><small>1</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>2</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Java/">Java</a><small>1</small></li>
+  
+    <li><a href="/tags/MySQL/">MySQL</a><small>3</small></li>
+  
+    <li><a href="/tags/Python/">Python</a><small>1</small></li>
+  
+    <li><a href="/tags/java/">java</a><small>5</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/tags/mysql/">mysql</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Zhang Yuan
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof jQuery == 'undefined') {
+document.write(unescape("%3Cscript src='/js/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+}
+// ]]>
+</script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+
+// highlight
+ hljs.initHighlightingOnLoad();
+
+})(jQuery);
+</script>
+
+</body>
+</html>
